@@ -1,4 +1,4 @@
-Tema: Democratização do acesso a locais de lazer para P.C.D's
+Tema: Democratização do acesso a locais de lazer para P.C.D's.
 
 Projeto: Aplicativo com o objetivo de avaliar e rocomendar locais de lazer acessíveis para pessoas com deficiência, com uma comunidade que retroalimenta as informações.
 
