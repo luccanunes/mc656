@@ -36,7 +36,7 @@ body {
 }
 
 input{
-  background-color: #3bc529;
+  background-color: #121412;
 }
 
 .button{
@@ -52,6 +52,36 @@ input{
   border-radius: 0px 40px 40px 0px;
 }
 
+.login {
+  width: 30%;
+  background-color: #ccc;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Alinha os itens verticalmente */
+  justify-content: center; /* Centraliza os itens verticalmente */
+  align-items: center; /*Centraliza os itens horizontalmente*/ 
+}
 
+.login h1 {
+  margin-bottom: 20px;
+  color: #0a0a0a
+}
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-container input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
 

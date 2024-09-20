@@ -4,12 +4,15 @@ interface ButtonProps {
     text: string;
 }
 
+
 const Button: React.FC<ButtonProps> = ({ text }) => {
     return (
-        <div className="button">
+        // Antes tava className="button", to só testando com esse
+        <a className="loginButton">
             {text}
-        </div>
+        </a>
     );
 };
+
 
 export default Button;
