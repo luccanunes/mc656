@@ -7,7 +7,14 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ text }) => {
     return (
         <div className="button">
-            {text}
+            <div
+                style={{
+                color: '#ededed',
+                fontSize: '24px'
+                }}
+            >
+                {text}
+            </div>
         </div>
     );
 };

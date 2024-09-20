@@ -31,15 +31,19 @@ body {
   display: flex;
   width: 100%;
   height: 100vh;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   background: linear-gradient(180deg, #0F0E0F 0%, #161616 100%);
 }
 
-input{
-  background-color: #3bc529;
-}
-
 .button{
+  height: fit-content;
+  /* width: fit-content; */
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
   background: #18ACFE;
   box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.25);
   border-radius: 32px;
@@ -52,6 +56,58 @@ input{
   border-radius: 0px 40px 40px 0px;
 }
 
+.signbox{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  background: transparent;
+  /* top: 100%;
+  left: 100%; */
+  --marg_hor: 32%;
+  --marg_ver: 75vh;
+  margin-left: calc((40% - var( --marg_hor)) / 2);
+  margin-top:  calc((100vh - var( --marg_ver)) / 2);
+  width:  var(--marg_hor);
+  height: var(--marg_ver);
+  /* border-radius: 0px 40px 40px 0px; */
+}
 
+.entryarea{
+  position: relative;
+  width: 100%;
+  height: 100px;
+  line-height: 80px;
+  margin-bottom: 15px;
+  background: transparent;
+}
 
+.labelline{
+  font-size: 1.2em;
+  color: var(--foreground);
+  padding: 0 25px;
+  /* margin: 0 20px; */
+  /* background-color: #1c2841; */
+  transition: 0.2s ease;
+}
 
+input{
+  position: absolute;
+  outline: none;
+  font-size: 2.0em;
+  padding: 0 30px;
+  width: 100%;
+  line-height: 70px;
+  border-bottom: 2px solid #f0ffff;
+  background: transparent;
+  transition: 0.1s ease;
+}
+
+input:focus + .labelline,
+input:valid + .labelline{
+  position: absolute;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 12px;
+  transform: translate(-15px, -16px) scale(0.88);
+}
