@@ -29,9 +29,6 @@ body {
 
 .container{
   display: flex;
-  width: 100%;
-  height: 100vh;
-  /* justify-content: space-between; */
   background: linear-gradient(180deg, #0F0E0F 0%, #161616 100%);
 }
 
@@ -50,7 +47,7 @@ body {
 }
 
 .leftimage{
-  width: 60%;
+  width: 60vw;
   height: 100vh;
   background-image: url('imagem_paisagem.jpg');
   border-radius: 0px 40px 40px 0px;
@@ -94,8 +91,9 @@ body {
 input{
   position: absolute;
   outline: none;
-  font-size: 2.0em;
-  padding: 0 30px;
+  font-size: 20px;
+ 
+  padding: 0 30px ;
   width: 100%;
   line-height: 70px;
   border-bottom: 2px solid #f0ffff;

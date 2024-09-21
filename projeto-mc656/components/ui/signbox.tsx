@@ -1,6 +1,6 @@
 import Button from "./button";
 
-export default function LeftImage() {
+export default function SignBox() {
   return (
     <div className= "signbox">
       <div
