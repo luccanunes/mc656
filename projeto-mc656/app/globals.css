@@ -34,6 +34,8 @@ body {
 
 .button{
   height: fit-content;
+  user-select: none;
+  cursor: pointer;
   /* width: fit-content; */
   margin-top: 30px;
   width: 100%;
@@ -88,17 +90,21 @@ body {
   transition: 0.2s ease;
 }
 
+
 input{
   position: absolute;
-  outline: none;
   font-size: 20px;
- 
+  
   padding: 0 30px ;
   width: 100%;
   line-height: 70px;
   border-bottom: 2px solid #f0ffff;
   background: transparent;
   transition: 0.1s ease;
+}
+
+input:focus {
+  outline: none;
 }
 
 input:focus + .labelline,

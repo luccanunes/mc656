@@ -1,12 +1,15 @@
+"use client";
+
 import React from 'react';
 
 interface ButtonProps {
     text: string;
+    onClick?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ text }) => {
+const Button: React.FC<ButtonProps> = ({ text, onClick=()=>{} }) => {
     return (
-        <div className="button">
+        <button type='submit' className="button" onClick={onClick}>
             <div
                 style={{
                 color: '#ededed',
@@ -15,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({ text }) => {
             >
                 {text}
             </div>
-        </div>
+        </button>
     );
 };
 
