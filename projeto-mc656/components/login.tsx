@@ -1,18 +1,17 @@
-import Button from "./ui/button";
+import Back from "./ui/back";
+import Acesso from "./ui/acesso";
 import LeftImage from "./ui/leftimage";
+import LoginBox from "./ui/loginbox";
 
 export default function Login() {
   return (
-    <div className="container">
-      <LeftImage />
-      <div className="login">
-        <h1>Login</h1>
-        <div className="input-container">
-          <input type="text" placeholder="Usuário" />
-          <input type="password" placeholder="Senha" />
-        </div>
-        <Button text="Entrar" />
-      </div>
-    </div>
+    <div className="display: flex">
+    <Back/>
+    <Acesso/>
+    <LeftImage/>
+    <LoginBox/>
+  </div>
   );
 }
+
+// image='./components/ui/parque.jpg'

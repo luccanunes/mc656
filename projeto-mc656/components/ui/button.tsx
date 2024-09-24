@@ -1,16 +1,24 @@
+"use client";
+
 import React from 'react';
 
 interface ButtonProps {
     text: string;
+    onClick?: () => void;
 }
 
-
-const Button: React.FC<ButtonProps> = ({ text }) => {
+const Button: React.FC<ButtonProps> = ({ text, onClick=()=>{} }) => {
     return (
-        // Antes tava className="button", to só testando com esse
-        <a className="loginButton">
-            {text}
-        </a>
+        <button type='submit' className="button" onClick={onClick}>
+            <div
+                style={{
+                color: '#ededed',
+                fontSize: '24px'
+                }}
+            >
+                {text}
+            </div>
+        </button>
     );
 };
 
