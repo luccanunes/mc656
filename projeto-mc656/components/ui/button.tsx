@@ -4,7 +4,7 @@ import React from 'react';
 
 interface ButtonProps {
     text: string;
-    onClick?: () => void;
+    onClick?: (event: React.FormEvent) => Promise<void>;
 }
 
 const Button: React.FC<ButtonProps> = ({ text, onClick=()=>{} }) => {
@@ -21,5 +21,6 @@ const Button: React.FC<ButtonProps> = ({ text, onClick=()=>{} }) => {
         </button>
     );
 };
+
 
 export default Button;

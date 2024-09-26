@@ -72,6 +72,22 @@ body {
   /* border-radius: 0px 40px 40px 0px; */
 }
 
+.loginbox{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  background: transparent;
+  /* top: 100%;
+  left: 100%; */
+  --marg_hor: 32%;
+  --marg_ver: 75vh;
+  margin-left: calc((40% - var( --marg_hor)) / 2);
+  margin-top:  calc((100vh - var( --marg_ver)) / 2);
+  width:  var(--marg_hor);
+  height: var(--marg_ver);
+}
+
 .entryarea{
   position: relative;
   width: 100%;
@@ -89,7 +105,6 @@ body {
   /* background-color: #1c2841; */
   transition: 0.2s ease;
 }
-
 
 input{
   position: absolute;
@@ -115,3 +130,4 @@ input:valid + .labelline{
   padding: 0 12px;
   transform: translate(-15px, -16px) scale(0.88);
 }
+

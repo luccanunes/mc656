@@ -1,11 +1,10 @@
 "use client";
+import React from 'react';
 import Button from "./button";
+import cadastroBD from './cadastroBD';
 
 const SignBox = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    alert('Botão clicado!');
-    
-  };
+  const { username, setUsername, email, setEmail, password, setPassword, handleSubmit } = cadastroBD();
 
   return (
     <form className= "signbox" onSubmit={handleSubmit}>
@@ -35,26 +34,42 @@ const SignBox = () => {
           </a>
       </div>
       <div className= "entryarea">
-        <input type = "text" required/>
+        <input type = "text"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}/>
+
         <div className = "labelline"> Enter your username </div>
       </div>
 
       <div className= "entryarea">
-        <input type = "text" required/>
+        <input type = "text"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}/>
+
         <div className = "labelline"> Enter your email address </div>
       </div>
       
       <div className= "entryarea">
-        <input type = "password" required/>
+        <input type = "password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}/>
+
         <div className = "labelline"> Enter your password </div>
       </div>
       
       <div className= "entryarea">
-        <input type = "password" required/>
+        <input type = "password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}/>
+
         <div className = "labelline"> Confirm your password </div>
       </div>
 
-      <Button text = 'Register'/>
+      <Button text = 'Register' onClick={handleSubmit}/>
 
       {/* <input type = 'text'/> */}
 
