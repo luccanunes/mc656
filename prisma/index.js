@@ -82,6 +82,23 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
+app.delete('/api/delete', async (req, res) => {
+  const email = req.params.email; 
+
+  try {
+    const userDeletado = await prisma.user.delete({
+      where: { email },
+    });
+
+    if (!userDeletado) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    res.json({ message: 'Usuário removido com sucesso!' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 app.listen(3001, () => {
   console.log('Servidor rodando na porta 3001');
