@@ -4,7 +4,7 @@ import Button from "./button";
 import cadastroBD from './cadastroBD';
 
 const SignBox = () => {
-  const { username, setUsername, email, setEmail, password, setPassword, handleSubmit } = cadastroBD();
+  const { username, setUsername, email, setEmail, password, setPassword, confirm, setConfirm, handleSubmit } = cadastroBD();
 
   return (
     <form className= "signbox" onSubmit={handleSubmit}>
@@ -52,7 +52,7 @@ const SignBox = () => {
       </div>
       
       <div className= "entryarea">
-        <input type = "text"
+        <input type = "password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}/>
@@ -61,17 +61,15 @@ const SignBox = () => {
       </div>
       
       <div className= "entryarea">
-        <input type = "text"
+        <input type = "password"
               required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}/>
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}/>
 
         <div className = "labelline"> Confirm your password </div>
       </div>
 
       <Button text = 'Register' onClick={handleSubmit}/>
-
-      {/* <input type = 'text'/> */}
 
     </form>
   );

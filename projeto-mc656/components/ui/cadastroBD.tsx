@@ -5,9 +5,18 @@ const cadastroBD = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (password.length < 6) {
+        alert('A senha deve ter pelo menos 6 caracteres.');
+        return;
+    } else if (password != confirm) {
+        alert('A senha e a confirmação devem ser iguais');
+        return;
+    }
 
     try {
       const response = await fetch('/api/register', {
@@ -29,7 +38,7 @@ const cadastroBD = () => {
     }
   };
 
-  return { username, setUsername, email, setEmail, password, setPassword, handleSubmit };
+  return { username, setUsername, email, setEmail, password, setPassword, confirm, setConfirm, handleSubmit };
 };
 
 export default cadastroBD;
