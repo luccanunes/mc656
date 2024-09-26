@@ -39,12 +39,12 @@ export default function LeftImage() {
       </div>
       
       <div className= "entryarea">
-        <input type = "text" required/>
+        <input type = "password" required/>
         <div className = "labelline"> Enter your password </div>
       </div>
       
       <div className= "entryarea">
-        <input type = "text" required/>
+        <input type = "password" required/>
         <div className = "labelline"> Confirm your password </div>
       </div>
 
