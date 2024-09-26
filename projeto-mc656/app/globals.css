@@ -120,3 +120,18 @@ input:valid+.labelline {
   /* margin-right: 20px; */
   width: 18%;
 }
+
+.carousel-image {
+  width: 100%;
+  /* Ajusta a largura da imagem para preencher o contêiner */
+  height: auto;
+  /* Mantém a proporção da imagem */
+  /* max-width: 700px; */
+  /* Define uma altura máxima para as imagens */
+  object-fit: cover;
+  /* Ajusta a imagem para cobrir o contêiner */
+}
+
+.slide-title {
+  font-weight: bold;
+}
