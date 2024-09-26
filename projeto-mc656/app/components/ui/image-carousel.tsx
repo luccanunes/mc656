@@ -23,7 +23,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
                             {
                                 width: "900px", /* Ajuste a largura conforme necessário */
                                 height: "auto", /* Mantém a proporção da imagem */
-                                margin: "0 auto"
+                                margin: "0 auto",
+                                marginBottom: "5px"
                             }
                         } />
                         <div className="slide-text" style={{
