@@ -9,7 +9,7 @@ const loginBD = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('http://localhost:3001/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,9 +18,9 @@ const loginBD = () => {
       });
 
       if (response.ok) {
-        console.log('Usuário cadastrado com sucesso!');
-        // Limpe os campos ou faça outra ação após o sucesso
+        alert('Login realizado com sucesso!');
       } else {
+        alert("Falha no login, tente novamente")
         console.error('Erro ao cadastrar usuário:', response.statusText);
       }
     } catch (error) {

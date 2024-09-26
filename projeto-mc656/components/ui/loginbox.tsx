@@ -1,10 +1,10 @@
 "use client";
 import React from 'react';
 import Button from "./button";
-import cadastroBD from './loginBD';
+import loginBD from './loginBD';
 
 const LoginBox = () => {
-  const {email, setEmail, password, setPassword, handleSubmit } = cadastroBD();
+  const {email, setEmail, password, setPassword, handleSubmit } = loginBD();
 
   return (
     <form className= "loginbox" onSubmit={handleSubmit}>
@@ -34,7 +34,7 @@ const LoginBox = () => {
           </a>
       </div>
       <div className= "entryarea">
-        <input type = "text"
+        <input type = "email"
             required
             value = {email}
             onChange = {(e) => setEmail(e.target.value)}/>
@@ -51,7 +51,7 @@ const LoginBox = () => {
         <div className = "labelline"> Enter your password </div>
       </div>
 
-      <Button text = 'Log in'/>
+      <Button text = 'Log in' onClick={handleSubmit}/>
 
     </form>
   );

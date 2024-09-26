@@ -43,7 +43,7 @@ const SignBox = () => {
       </div>
 
       <div className= "entryarea">
-        <input type = "text"
+        <input type = "email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}/>

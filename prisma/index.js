@@ -1,29 +1,87 @@
-// Exemplo com Express.js
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 const app = express();
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use(express.json());
 
-app.post('/api/register', async (req, res) => {
-  const { user, email, password } = req.body;
+async function check_email(email) {
 
   try {
-    const newUser = await prisma.user.create({
-      data: {
-        user,
-        email,
-        password
-      },
+    const user = await prisma.user.findUnique({
+      where: { email: email },
     });
-    res.status(201).json(newUser);
+
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
   } catch (error) {
+    console.error('Erro ao verificar email:', error);
+  }
+};
+
+app.post('/api/register', async (req, res) => {
+  const { username , email, password } = req.body;
+  try {
+      let email_exists = check_email(email);
+      if (!email_exists) {
+          const newUser = await prisma.user.create({
+              data: {
+                username,
+                email,
+                password}
+        })} else {
+          alert("Email já cadastrado")
+        }
+  } catch(error) {
     console.error('Erro ao registrar usuário:', error);
-    res.status(500).json({ error: 'Erro ao registrar usuário' });
   }
 });
+
+app.post('/api/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Credenciais inválidas.' });
+    }
+
+    const senhaValida = user.password
+
+    if (senhaValida != password) {
+      return res.status(401).json({ message: 'Credenciais inválidas.' });
+    }
+
+    // Login bem-sucedido
+    res.json({ message: 'Login realizado com sucesso!' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 app.listen(3001, () => {
   console.log('Servidor rodando na porta 3001');
