@@ -80,9 +80,10 @@ jobs:
         with:
           path: |
             ./projeto-mc656/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('projeto-mc656/**/package-lock.json', 'projeto-mc656/**/yarn.lock', 'projeto-mc656/**/next.config.js', 'projeto-mc656/**/*.js', 'projeto-mc656/**/*.jsx', 'projeto-mc656/**/*.ts', 'projeto-mc656/**/*.tsx') }}-${{ hashFiles('projeto-mc656/**/pages/**/*', 'projeto-mc656/**/components/**/*', 'projeto-mc656/**/public/**/*') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('projeto-mc656/package-lock.json', 'projeto-mc656/yarn.lock', 'projeto-mc656/next.config.js', 'projeto-mc656/**/*.js', 'projeto-mc656/**/*.jsx', 'projeto-mc656/**/*.ts', 'projeto-mc656/**/*.tsx') }}-${{ hashFiles('projeto-mc656/pages/**/*', 'projeto-mc656/components/**/*', 'projeto-mc656/public/**/*') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('projeto-mc656/**/package-lock.json', 'projeto-mc656/**/yarn.lock') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('projeto-mc656/package-lock.json', 'projeto-mc656/yarn.lock') }}-
+
 
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
