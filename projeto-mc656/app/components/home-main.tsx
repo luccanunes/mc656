@@ -19,7 +19,8 @@ export default function HomeMain() {
     ];
     return (
         <div>
-            {/* <h1>Descubra Lugares de Lazer Inclusivos</h1> */}
+            <h1 style={{ fontSize: "60px", textAlign: 'center', marginBottom: "-30px" }}>Descubra Lugares de Lazer</h1>
+            <h1 style={{ fontSize: "60px", textAlign: 'center', color: '#18ACFE' }}>Inclusivos</h1>
             <ImageSlider slides={slides} />
         </div>
     );

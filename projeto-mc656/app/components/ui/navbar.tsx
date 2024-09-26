@@ -3,7 +3,7 @@ import Button from "./button";
 export default function Navbar() {
     return (
         <div className="display: flex navbar" style={
-            { width: "100%", marginTop: '30px', marginBottom: "50px", justifyContent: "center" }
+            { width: "100%", marginTop: '30px', marginBottom: "40px", justifyContent: "center" }
         }>
             <div style={{ display: "flex", width: "70%", justifyContent: "space-between" }}>
                 <Button text="Página Inicial" fontSize="16px" dark outline="#ededed" boxShadow={false} />
