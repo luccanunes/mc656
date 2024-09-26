@@ -1,8 +1,14 @@
+"use client";
 import Button from "./button";
 
-export default function LeftImage() {
+const SignBox = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    alert('Botão clicado!');
+    
+  };
+
   return (
-    <div className= "signbox">
+    <form className= "signbox" onSubmit={handleSubmit}>
       <div
         style={{
           color: '#ededed',
@@ -52,6 +58,8 @@ export default function LeftImage() {
 
       {/* <input type = 'text'/> */}
 
-    </div>
+    </form>
   );
 }
+
+export default SignBox;

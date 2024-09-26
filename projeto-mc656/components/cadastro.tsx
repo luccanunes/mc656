@@ -5,7 +5,7 @@ import SignBox from "./ui/signbox";
 
 export default function Cadastro() {
   return (
-    <div className="container">
+    <div className="display: flex">
       <Back/>
       <Acesso/>
       <LeftImage/>
