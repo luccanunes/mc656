@@ -36,7 +36,7 @@ const LoginBox = () => {
       </div>
       <div className= "entryarea">
         <input type = "text" required/>
-        <div className = "labelline"> Enter your email address or username </div>
+        <div className = "labelline"> Enter your email address </div>
       </div>
 
       <div className= "entryarea">
