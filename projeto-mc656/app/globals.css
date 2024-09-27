@@ -27,12 +27,12 @@ body {
   }
 }
 
-.container{
+.container {
   display: flex;
   background: linear-gradient(180deg, #0F0E0F 0%, #161616 100%);
 }
 
-.button{
+.button {
   height: fit-content;
   user-select: none;
   cursor: pointer;
@@ -48,14 +48,14 @@ body {
   border-radius: 32px;
 }
 
-.leftimage{
+.leftimage {
   width: 60vw;
   height: 100vh;
   background-image: url('imagem_paisagem.jpg');
   border-radius: 0px 40px 40px 0px;
 }
 
-.signbox{
+.signbox {
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
@@ -65,14 +65,14 @@ body {
   left: 100%; */
   --marg_hor: 32%;
   --marg_ver: 75vh;
-  margin-left: calc((40% - var( --marg_hor)) / 2);
-  margin-top:  calc((100vh - var( --marg_ver)) / 2);
-  width:  var(--marg_hor);
+  margin-left: calc((40% - var(--marg_hor)) / 2);
+  margin-top: calc((100vh - var(--marg_ver)) / 2);
+  width: var(--marg_hor);
   height: var(--marg_ver);
   /* border-radius: 0px 40px 40px 0px; */
 }
 
-.loginbox{
+.loginbox {
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
@@ -88,7 +88,7 @@ body {
   height: var(--marg_ver);
 }
 
-.entryarea{
+.entryarea {
   position: relative;
   width: 100%;
   height: 100px;
@@ -97,7 +97,7 @@ body {
   background: transparent;
 }
 
-.labelline{
+.labelline {
   font-size: 1.2em;
   color: var(--foreground);
   padding: 0 25px;
@@ -106,11 +106,11 @@ body {
   transition: 0.2s ease;
 }
 
-input{
+input {
   position: absolute;
   font-size: 20px;
-  
-  padding: 0 30px ;
+
+  padding: 0 30px;
   width: 100%;
   line-height: 70px;
   border-bottom: 2px solid #f0ffff;
@@ -122,8 +122,8 @@ input:focus {
   outline: none;
 }
 
-input:focus + .labelline,
-input:valid + .labelline{
+input:focus+.labelline,
+input:valid+.labelline {
   position: absolute;
   height: 30px;
   line-height: 30px;
@@ -131,3 +131,22 @@ input:valid + .labelline{
   transform: translate(-15px, -16px) scale(0.88);
 }
 
+.navbar .button {
+  /* margin-right: 20px; */
+  width: 18%;
+}
+
+.carousel-image {
+  width: 100%;
+  /* Ajusta a largura da imagem para preencher o contêiner */
+  height: auto;
+  /* Mantém a proporção da imagem */
+  /* max-width: 700px; */
+  /* Define uma altura máxima para as imagens */
+  object-fit: cover;
+  /* Ajusta a imagem para cobrir o contêiner */
+}
+
+.slide-title {
+  font-weight: bold;
+}
