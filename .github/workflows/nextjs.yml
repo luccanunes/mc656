@@ -36,9 +36,9 @@ jobs:
         working-directory: ./
         
       - name: Start API server
-      run: npm run serve &
-      env:
-        NODE_ENV: test
+        run: npm run serve &
+        env:
+          NODE_ENV: test
 
       - name: Wait for API to be ready
         run: sleep 10
