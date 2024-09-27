@@ -6,6 +6,12 @@ const cors = require('cors');
 const prisma = new PrismaClient();
 const app = express();
 
+async function deleeee() {
+  await prisma.user.deleteMany();
+}
+
+deleeee();
+
 app.use(cors({
   origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
