@@ -87,15 +87,15 @@ jobs:
         with:
           path: ./out
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write      # Necessário para o deploy no GitHub Pages
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}  # Atualize conforme necessário
-    steps:
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     pages: write      # Necessário para o deploy no GitHub Pages
+  #     id-token: write
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}  # Atualize conforme necessário
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       uses: actions/deploy-pages@v4
