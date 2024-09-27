@@ -80,7 +80,6 @@ jobs:
       - name: Build with Next.js
         run: |
           npx next build
-          npx next export
         working-directory: ./
 
       - name: Upload artifact
@@ -91,6 +90,12 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write      # Necessário para o deploy no GitHub Pages
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}  # Atualize conforme necessário
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
