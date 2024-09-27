@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "serve": "node prisma/index.js"
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
