@@ -1,9 +1,10 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
+const cors = require('cors');
+
 
 const prisma = new PrismaClient();
 const app = express();
-const cors = require('cors');
 
 app.use(cors({
   origin: 'http://localhost:3000',
@@ -14,26 +15,16 @@ app.use(cors({
 app.use(express.json());
 
 async function check_email(email) {
-
-  try {
-    const user = await prisma.user.findUnique({
-      where: { email: email },
-    });
-
-    if (user) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.error('Erro ao verificar email:', error);
-  }
-};
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+  return !!user;
+}
 
 app.post('/api/register', async (req, res) => {
   const { username, email, password } = req.body;
   try {
-    let email_exists = check_email(email);
+    let email_exists = await check_email(email);
     if (!email_exists) {
       const newUser = await prisma.user.create({
         data: {
@@ -41,12 +32,17 @@ app.post('/api/register', async (req, res) => {
           email,
           password
         }
-      })
+      });
+      console.log(`Registrando ${email}`);
+      res.status(201).json({ message: 'Usuário registrado com sucesso!', user: newUser });
     } else {
-      alert("Email já cadastrado")
+      console.error("Email já cadastrado");
+      res.status(400).json("Email já está cadastrado");
+      return;
     }
   } catch (error) {
     console.error('Erro ao registrar usuário:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -62,13 +58,12 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ message: 'Credenciais inválidas.' });
     }
 
-    const senhaValida = user.password
+    const senhaValida = user.password; // Aqui você deve usar bcrypt para comparar as senhas
 
     if (senhaValida != password) {
       return res.status(401).json({ message: 'Credenciais inválidas.' });
     }
 
-    // Login bem-sucedido
     res.json({ message: 'Login realizado com sucesso!' });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -84,25 +79,25 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-app.delete('/api/delete', async (req, res) => {
+app.delete('/api/delete/:email', async (req, res) => {
   const email = req.params.email;
+  console.log(`Deletando ${email}`);
 
   try {
     const userDeletado = await prisma.user.delete({
       where: { email },
     });
-
-    if (!userDeletado) {
-      return res.status(404).json({ message: 'Usuário não encontrado.' });
-    }
-
     res.json({ message: 'Usuário removido com sucesso!' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    if (error.code === 'P2025') { // Código de erro do Prisma para registro não encontrado
+      console.error(`Usuário com email ${email} não encontrado`)
+      res.status(404).json({ message: 'Usuário não encontrado.' });
+    } else {
+      console.error(error.message);
+      res.status(500).json({ error: error.message });
+    }
   }
 });
-
-module.exports = app;
 
 app.listen(3001, () => {
   console.log('Servidor rodando na porta 3001');
