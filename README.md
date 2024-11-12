@@ -13,7 +13,8 @@ Repositório: https://github.com/luccanunes/mc656
 ## Arquitetura (Avaliação A4)
 
 ### Diagrama em Nível de Componentes (C4 - Nível 3)
-!<link_para_o_diagrama|Diagrama de Componentes>
+![image](https://github.com/user-attachments/assets/de940e62-1e34-4a24-8a45-86aa2ad97ff1)
+
 
 ### Estilo(s) Arquitetural(is) Adotado(s)
 - *MVC (Model-View-Controller):* Separação das responsabilidades em Model, View e Controller.
