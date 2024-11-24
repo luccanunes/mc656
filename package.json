@@ -11,7 +11,9 @@
         "serve": "node prisma/index.js"
     },
     "dependencies": {
+        "@headlessui/react": "^2.2.0",
         "@prisma/client": "^5.20.0",
+        "@tabler/icons-react": "^3.22.0",
         "autoprefixer": "^10.4.20",
         "axios": "^1.7.7",
         "clsx": "^2.1.1",
