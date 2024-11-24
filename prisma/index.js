@@ -74,21 +74,22 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-app.get('/api/users', async (req, res) => {
+/* app.get('/api/users', async (req, res) => {
   try {
     const users = await prisma.user.findMany();
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
+}); */
+// Nunca é usado pela API, é só pra verificar os users (Dispensable)
 
 app.delete('/api/delete/:email', async (req, res) => {
   const email = req.params.email;
   console.log(`Deletando ${email}`);
 
   try {
-    const userDeletado = await prisma.user.delete({
+    await prisma.user.delete({
       where: { email },
     });
     res.json({ message: 'Usuário removido com sucesso!' });

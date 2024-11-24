@@ -2,6 +2,7 @@ import Menu from "./components/ui/menu";
 import Acesso from "./components/ui/acesso";
 import Navbar from "./components/ui/navbar";
 import HomeMain from "./components/home-main";
+import SignBox from "./components/cadastro";
 
 export default function Home() {
   return (

@@ -11,6 +11,7 @@ interface ButtonProps {
     boxShadow?: boolean;
 }
 
+
 const Button: React.FC<ButtonProps> = ({ text, onClick = () => { }, fontSize = '24px', dark = false, outline = "null", boxShadow = true }) => {
     return (
         <button type='submit' className="button" onClick={onClick} style={
