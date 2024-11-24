@@ -1,9 +1,7 @@
 const express = require('express');
-const { PrismaClient } = require('@prisma/client');
+const prisma = require('./database');
 const cors = require('cors');
 
-
-const prisma = new PrismaClient();
 const app = express();
 
 async function deleeee() {
