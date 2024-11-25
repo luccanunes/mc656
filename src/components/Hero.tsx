@@ -10,10 +10,11 @@ const Hero = () => {
         <div className="hero">
             <div className="flex-1 pt-36 padding-x">
                 <h1 className="hero__title">
-                    Descubra Lugares de
-                    <h1 className="text-blue-500"> Lazer Inclusivos —</h1>de
+                    Descubra Lugares de{" "}
+                    <span className="text-blue-500">Lazer Inclusivos — </span>  de
                     forma fácil e confiável!
                 </h1>
+
                 <p className="hero__subtitle">
                     Tenha informações de confiança sobre a acessibilidade de
                     locais de Lazer.
