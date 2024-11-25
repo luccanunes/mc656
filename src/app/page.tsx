@@ -20,7 +20,7 @@ export default function Home() {
     allPlaces.push({
         nome: "Parque Ibirapuera",
         cidade: "São Paulo",
-        acessibilidade: ["motora", "visual"],
+        acessibilidade: ["Motora", "Visual", "Auditiva"],
         nota: 5,
         endereco: "Rua X",
     });
@@ -29,7 +29,7 @@ export default function Home() {
     allPlaces.push({
         nome: "Praia de Copacabana",
         cidade: "Rio de Janeiro",
-        acessibilidade: ["motora", "auditiva"],
+        acessibilidade: ["Motora", "Auditiva", "Visual",],
         nota: 5,
         endereco: "Rua X",
     });
@@ -47,14 +47,6 @@ export default function Home() {
                 </div>
                 <div className="home__filters">
                     <SearchBar />
-
-                    <div className="home__filter-container">
-                        <CustomFilter title="fuel" options={acessibility} />
-                        <CustomFilter
-                            title="year"
-                            options={yearsOfProduction}
-                        />
-                    </div>
                 </div>
                 <div>
                     {!isDataEmpty ? (
