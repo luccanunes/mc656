@@ -11,6 +11,5 @@ class Database {
 }
 
 const databaseInstance = new Database();
-Object.freeze(databaseInstance); // Prevenir modificação da instância
 
 module.exports = databaseInstance;

@@ -14,11 +14,13 @@ datasource db {
 }
 
 model Usuario {
-  id        Int     @id @default(autoincrement())
-  nome      String
-  email     String  @unique
-  senha     String
-  avaliacoes Avaliacao[]
+  id           Int        @id @default(autoincrement())
+  nome         String
+  email        String     @unique
+  senha        String
+  imagem       String?
+  avaliacoes   Avaliacao[]
+  deficiencias String?    // Armazena deficiências como uma string delimitada
 }
 
 model Local {
@@ -26,12 +28,13 @@ model Local {
   nome        String
   endereco    String
   descricao   String
+  imagem      String?
   avaliacoes  Avaliacao[]
 }
 
 model Avaliacao {
-  id       Int     @id @default(autoincrement())
-  nota     Int
+  id        Int     @id @default(autoincrement())
+  nota      Int
   comentario String
   usuario   Usuario @relation(fields: [usuarioId], references: [id])
   usuarioId Int
