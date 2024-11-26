@@ -6,6 +6,8 @@ import SearchBar from "./SearchBar";
 import Hero from "./Hero";
 import Searchcity from "./SearchCity";
 import PlaceCard from "./PlaceCard";
+import { Login } from "./Login";
+import { Cadastro } from "./Cadastro";
 
 export {
     Hero,
@@ -16,4 +18,6 @@ export {
     SearchBar,
     Searchcity,
     PlaceCard,
+    Login,
+    Cadastro
 };
