@@ -1,3 +1,37 @@
+Tema: Democratização do acesso a locais de lazer para P.C.D's.
+
+Projeto: Aplicação web com o objetivo de avaliar e recomendar locais de lazer acessíveis para pessoas com deficiência, com uma comunidade que retroalimenta as informações.
+
+Integrantes:
+- 230554, Lucca Miranda Nunes
+- 230888, Matheus Farias Barbosa
+- 230977, Pablo Henrique Almeida Mendes
+- 184031, Yvens Ian Prado Porto
+
+Repositório: https://github.com/luccanunes/mc656
+
+## Arquitetura (Avaliação A4)
+
+### Diagrama em Nível de Componentes (C4 - Nível 3)
+![image](https://github.com/user-attachments/assets/de940e62-1e34-4a24-8a45-86aa2ad97ff1)
+
+
+### Estilo(s) Arquitetural(is) Adotado(s)
+- *MVC (Model-View-Controller):* Separação das responsabilidades em Model, View e Controller.
+- *Microsserviços:* Cada componente é um serviço independente, facilitando a escalabilidade e manutenção.
+
+### Descrição dos Principais Componentes
+- *Aplicação Web:* Responsável pela interface do usuário, captura de entradas e exibição de saídas.
+- *Servidor de Aplicação:* Contém a lógica de negócios, processamento de dados e comunicação com o banco de dados.
+- *Banco de Dados:* Armazena os dados de forma persistente.
+- *Gateway de API:* Gerencia a comunicação entre o frontend e o backend, servindo como ponto de entrada único para as requisições.
+- *Serviço de Autenticação:* Gerencia a autenticação e autorização dos usuários.
+- *Serviço de Notificações:* Envia notificações para os usuários sobre atualizações e recomendações.
+
+### Padrão de Projeto Adotado
+- *Singleton:* Implementado no componente X para garantir que apenas uma instância da classe seja criada e fornecer um ponto de acesso global a essa instância.
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
