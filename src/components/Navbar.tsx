@@ -16,11 +16,18 @@ const Navbar = () => {
                         className="object-contain"
                     ></Image>
                 </Link>
-                <CustomButton
-                    title="Cadastre-se"
-                    btnType="button"
-                    containerStyles="text-primary-blue rounded-full bg-white min-w-[130px] border"
-                ></CustomButton>
+                <div className="flex space-x-4">
+                    <CustomButton
+                        title="Cadastre-se"
+                        btnType="button"
+                        containerStyles="text-primary-blue rounded-full bg-white min-w-[130px] border"
+                    ></CustomButton>
+                    <CustomButton
+                        title="Entrar"
+                        btnType="button"
+                        containerStyles="text-primary-blue rounded-full bg-white min-w-[130px] border"
+                    ></CustomButton>
+                </div>
             </nav>
         </header>
     );
