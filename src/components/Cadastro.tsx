@@ -37,7 +37,7 @@ export function Cadastro({ onClose }: { onClose: () => void }) {
       setSuccess("Cadastro realizado com sucesso!");
       setTimeout(() => {
         onClose(); // Fecha o modal após o sucesso
-      }, 2000);
+      }, 800);
     } catch (err) {
       console.error("Erro ao criar usuário:", err);
       setError("Erro ao criar conta. Tente novamente.");

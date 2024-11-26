@@ -32,7 +32,7 @@ function authenticateToken(req, res, next) {
 app.post('/usuarios', async (req, res) => {
   const { nome, email, senha } = req.body;
   const hashedPassword = await bcrypt.hash(senha, 10);
-
+  console.log(req.body);
   try {
     const usuario = await prisma.usuario.create({
       data: {
@@ -43,6 +43,7 @@ app.post('/usuarios', async (req, res) => {
     });
     res.json(usuario);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Erro ao criar usuário.' });
   }
 });
