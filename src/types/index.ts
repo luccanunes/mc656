@@ -20,7 +20,17 @@ export interface HomeProps {
     searchParams: FilterProps;
 }
 
-
+export type PlaceDetailsType = {
+    [key: string]: {
+        estado: string;
+        items: {
+            title: string;
+            description: string;
+            className: string;
+            backgroundImage: string;
+        }[];
+    };
+};
 export interface CustomButtonProps {
     isDisabled?: boolean;
     btnType?: "button" | "submit";

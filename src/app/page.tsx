@@ -4,7 +4,7 @@ import Acesso from "../components/ui/acesso";
 import Navbar from "../components/ui/navbar";
 import HomeMain from "../components/home-main";
 import { CustomFilter, Hero, PlaceCard, SearchBar } from "@/components";
-import { acessibility, yearsOfProduction } from "@/constants";
+import { acessibility } from "@/constants";
 
 export default function Home() {
     //Puxar do banco de dados os locais aqui

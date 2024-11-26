@@ -19,7 +19,7 @@ const Navbar = () => {
                 <CustomButton
                     title="Cadastre-se"
                     btnType="button"
-                    containerStyles="text-primary-blue rounded-full bg-white min-w-[130px]"
+                    containerStyles="text-primary-blue rounded-full bg-white min-w-[130px] border"
                 ></CustomButton>
             </nav>
         </header>
