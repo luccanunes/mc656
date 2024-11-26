@@ -73,6 +73,35 @@ app.get('/usuarios/:id/avaliacoes', authenticateToken, async (req, res) => {
   }
 });
 
+// Obter informações de um usuário (id, nome, imagem, deficiencias)
+app.get('/usuarios/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const usuario = await prisma.usuario.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+      select: {
+        id: true,
+        nome: true,
+        imagem: true,
+        deficiencias: true, // Assumindo que deficiencias está como uma lista de strings ou campo similar
+      },
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuário não encontrado.' });
+    }
+
+    res.json(usuario);
+  } catch (error) {
+    console.error('Erro ao buscar informações do usuário:', error);
+    res.status(500).json({ error: 'Erro ao buscar informações do usuário.' });
+  }
+});
+
+
 // Logar usuário
 app.post('/usuarios/login', async (req, res) => {
   const { email, senha } = req.body;
