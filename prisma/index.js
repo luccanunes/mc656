@@ -145,7 +145,7 @@ app.post('/locais', authenticateToken, async (req, res) => {
     descricao,
     tiposDeAcessibilidade,
     recursosDisponiveis,
-    imagem
+    imagem,
   } = req.body;
 
   try {
@@ -154,9 +154,10 @@ app.post('/locais', authenticateToken, async (req, res) => {
         nome,
         endereco,
         descricao,
-        imagem,
         tiposDeAcessibilidade,
-        recursosDisponiveis
+        recursosDisponiveis,
+        imagem,
+        nota: 0.0 // Inicializa a nota como zero
       },
       select: {
         id: true,
@@ -166,6 +167,8 @@ app.post('/locais', authenticateToken, async (req, res) => {
         createdAt: true,
         tiposDeAcessibilidade: true,
         recursosDisponiveis: true,
+        imagem: true,
+        nota: true
       }
     });
     res.json(local);
@@ -175,13 +178,13 @@ app.post('/locais', authenticateToken, async (req, res) => {
   }
 });
 
-// Adicionar avaliação - Protegido por autenticação
+// Adicionar avaliação e atualizar a nota média do local
 app.post('/avaliacoes', authenticateToken, async (req, res) => {
   const { nota, comentario, usuarioId, localId } = req.body;
-  console.log(req.body);
 
   try {
-    const avaliacao = await prisma.avaliacao.create({
+    // Adicionar nova avaliação
+    const novaAvaliacao = await prisma.avaliacao.create({
       data: {
         nota,
         comentario,
@@ -189,9 +192,30 @@ app.post('/avaliacoes', authenticateToken, async (req, res) => {
         localId
       }
     });
-    res.json(avaliacao);
+
+    // Recalcular a nota média do local
+    const avaliacoes = await prisma.avaliacao.findMany({
+      where: {
+        localId: localId
+      }
+    });
+
+    const somaNotas = avaliacoes.reduce((acc, avaliacao) => acc + avaliacao.nota, 0);
+    const novaMediaNotas = somaNotas / avaliacoes.length;
+
+    // Atualizar a nota média no local
+    await prisma.local.update({
+      where: {
+        id: localId
+      },
+      data: {
+        nota: novaMediaNotas
+      }
+    });
+
+    res.json(novaAvaliacao);
   } catch (error) {
-    console.log(error);
+    console.error('Erro ao adicionar avaliação:', error);
     res.status(500).json({ error: 'Erro ao adicionar avaliação.' });
   }
 });
