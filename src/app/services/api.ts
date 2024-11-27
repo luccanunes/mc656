@@ -119,6 +119,42 @@ export async function obterUsuario(userId: string, token: string) {
     console.log("Dados do Usuário:", data);
     return data;
 }
+
+export async function obterLocal(localId: string) {
+    const response = await fetch(`${API_BASE_URL}/locais/${localId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao obter informações do local");
+    }
+
+    const data = await response.json();
+    console.log("Dados e Avaliações do Local:", data);
+    return data;
+}
+
+// Retorna todas as avaliações de um usuário
+export async function obterAvaliacoes(userId: string) {
+    const response = await fetch(`${API_BASE_URL}/usuarios/${userId}/avaliacoes`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao obter avaliações do usuário");
+    }
+
+    const data = await response.json();
+    console.log("Avaliações do Usuário:", data);
+    return data;
+}
+
 export function decodeTokenManually(token: string): any {
     try {
         // Divida o token em suas partes
