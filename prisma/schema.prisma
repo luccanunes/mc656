@@ -21,6 +21,7 @@ model Usuario {
   imagem       String?
   avaliacoes   Avaliacao[]
   deficiencias String?    // Armazena deficiências como uma string delimitada
+  createdAt    DateTime @default(now())
 }
 
 model Local {
@@ -30,6 +31,8 @@ model Local {
   descricao   String
   imagem      String?
   avaliacoes  Avaliacao[]
+  tiposDeAcessibilidade String? // Armazenado como string delimitada
+  recursosDisponiveis   String? // Armazenado como string delimitada
 }
 
 model Avaliacao {
