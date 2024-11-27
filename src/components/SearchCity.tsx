@@ -1,18 +1,34 @@
 "use client";
 import Image from "next/image";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Transition } from "@headlessui/react";
 
 import { Cities } from "@/constants";
 import { SearchcityProps } from "@/types";
+import { listarLocais } from "../app/services/api";
 
 const Searchcity = ({ city, setcity }: SearchcityProps) => {
     const [query, setQuery] = useState("");
+    const [allCities, setCities] = useState<string[]>([]); // Estado para armazenar as cidades
 
+    // Busca as cidades do banco ao montar o componente
+    useEffect(() => {
+        async function fetchCities() {
+            try {
+                const locais = await listarLocais();
+                const cityNames = locais.map((local: { nome: string }) => local.nome);
+                setCities(cityNames);
+            } catch (error) {
+                console.error("Erro ao listar cidades:", error);
+            }
+        }
+
+        fetchCities();
+    }, []);
     const filteredCities =
         query === ""
-            ? Cities
-            : Cities.filter(item =>
+            ? allCities
+            : allCities.filter(item =>
                   item
                       .toLowerCase()
                       .replace(/\s+/g, "")
