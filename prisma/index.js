@@ -30,7 +30,7 @@ function authenticateToken(req, res, next) {
 
 // Criar usuário
 app.post('/usuarios', async (req, res) => {
-  const { nome, email, senha, deficiencias = [] } = req.body;
+  const { nome, email, senha, deficiencias } = req.body;
 
   const hashedPassword = await bcrypt.hash(senha, 10);
   console.log(req.body);
@@ -40,7 +40,7 @@ app.post('/usuarios', async (req, res) => {
         nome,
         email,
         senha: hashedPassword,
-        deficiencias, // Converte array para string delimitada
+        deficiencias,
       },
       select: {
         id: true,
@@ -137,20 +137,41 @@ app.post('/usuarios/login', async (req, res) => {
   }
 });
 
-// Registrar local - Protegido por autenticação
+// Criar local
 app.post('/locais', authenticateToken, async (req, res) => {
-  const { nome, endereco, descricao } = req.body;
+  const {
+    nome,
+    endereco,
+    descricao,
+    tiposDeAcessibilidade,
+    recursosDisponiveis,
+    imagem
+  } = req.body;
+
   try {
     const local = await prisma.local.create({
       data: {
         nome,
         endereco,
-        descricao
+        descricao,
+        imagem,
+        tiposDeAcessibilidade,
+        recursosDisponiveis
+      },
+      select: {
+        id: true,
+        nome: true,
+        endereco: true,
+        descricao: true,
+        createdAt: true,
+        tiposDeAcessibilidade: true,
+        recursosDisponiveis: true,
       }
     });
     res.json(local);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao registrar local.' });
+    console.error('Erro ao criar local:', error);
+    res.status(500).json({ error: 'Erro ao criar local.' });
   }
 });
 
