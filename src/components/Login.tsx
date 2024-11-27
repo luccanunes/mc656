@@ -23,8 +23,8 @@ export function Login({ onClose }: { onClose: () => void }) {
     try {
       const token = await logarUsuario(email, senha); // Chama a função logarUsuario
       console.log("Login efetuado com sucesso! Token:", token);
-
-      // Feche o modal ou faça uma ação após o login bem-sucedido
+      localStorage.setItem("token_acessofacil", token);
+      window.location.href = "/";
       onClose();
     } catch (err) {
       console.error("Erro ao efetuar login:", err);
@@ -33,7 +33,7 @@ export function Login({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="relative max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+    <div className="z-50 relative max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       {/* Botão de Fechar */}
       <button
         onClick={onClose}

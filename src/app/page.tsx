@@ -5,34 +5,30 @@ import Navbar from "../components/ui/navbar";
 import HomeMain from "../components/home-main";
 import { CustomFilter, Hero, PlaceCard, SearchBar } from "@/components";
 import { acessibility } from "@/constants";
+import { listarLocais } from "./services/api";
 
 export default function Home() {
     //Puxar do banco de dados os locais aqui
-    const allPlaces: {
-        nome: string;
-        cidade: string;
-        acessibilidade: string[];
-        nota: number;
-        endereco: string;
-    }[] = [];
+    const allPlaces=  listarLocais();
+    console.log(allPlaces);
 
-    // Adicionando dados ao array
-    allPlaces.push({
-        nome: "Parque Ibirapuera",
-        cidade: "São Paulo",
-        acessibilidade: ["Motora", "Visual", "Auditiva"],
-        nota: 5,
-        endereco: "Rua X",
-    });
+    // // Adicionando dados ao array
+    // allPlaces.push({
+    //     nome: "Parque Ibirapuera",
+    //     cidade: "São Paulo",
+    //     acessibilidade: ["Motora", "Visual", "Auditiva"],
+    //     nota: 5,
+    //     endereco: "Rua X",
+    // });
 
-    // Adicionando mais locais
-    allPlaces.push({
-        nome: "Praia de Copacabana",
-        cidade: "Rio de Janeiro",
-        acessibilidade: ["Motora", "Auditiva", "Visual",],
-        nota: 5,
-        endereco: "Rua X",
-    });
+    // // Adicionando mais locais
+    // allPlaces.push({
+    //     nome: "Praia de Copacabana",
+    //     cidade: "Rio de Janeiro",
+    //     acessibilidade: ["Motora", "Auditiva", "Visual",],
+    //     nota: 5,
+    //     endereco: "Rua X",
+    // });
     const isDataEmpty =
         !Array.isArray(allPlaces) || allPlaces.length < 1 || !allPlaces;
     return (
