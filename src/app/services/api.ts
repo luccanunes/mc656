@@ -102,8 +102,8 @@ export async function listarLocais() {
     return data;
 }
 
-export async function obterUsuario(token: string) {
-    const response = await fetch(`${API_BASE_URL}/usuarios`, {
+export async function obterUsuario(userId: string, token: string) {
+    const response = await fetch(`${API_BASE_URL}/usuarios/${userId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -118,4 +118,25 @@ export async function obterUsuario(token: string) {
     const data = await response.json();
     console.log("Dados do Usuário:", data);
     return data;
+}
+export function decodeTokenManually(token: string): any {
+    try {
+        // Divida o token em suas partes
+        const payload = token.split(".")[1];
+        // Decodifique o payload de Base64 para JSON
+        const decodedPayload = JSON.parse(atob(payload));
+        return decodedPayload; // Retorna o objeto decodificado
+    } catch (error) {
+        console.error("Erro ao decodificar o token:", error);
+        return null; // Retorna null se houver erro
+    }
+}
+
+export function getUserId(): string | null {
+    const token = localStorage.getItem("token_acessofacil");
+    if (token) {
+        const decoded = decodeTokenManually(token);
+        return decoded?.userId || null; // Retorna o ID ou null se não existir
+    }
+    return null;
 }

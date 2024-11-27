@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import CustomButton from "./CustomButton";
-import { obterUsuario } from "@/app/services/api";
+import { getUserId, obterUsuario } from "@/app/services/api";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 
 const Navbar = () => {
     const handleLogout = () => {
@@ -16,13 +17,18 @@ const Navbar = () => {
 
     const [usuario, setUsuario] = useState<any>(null);
     const [erro, setErro] = useState<string | null>(null);
-
     useEffect(() => {
-        const token = localStorage.getItem("token_acessofacil"); // Obter o token do localStorage
+        const token = localStorage.getItem("token_acessofacil");
         if (token) {
-            obterUsuario(token)
-                .then(dados => setUsuario(dados))
-                .catch(err => setErro(err.message));
+            const userId = getUserId();
+            console.log(userId)
+            if (userId) {
+                obterUsuario(userId, token)
+                    .then((dados: any) => setUsuario(dados))
+                    .catch((err: { message: React.SetStateAction<string | null>; }) => setErro(err.message));
+            } else {
+                setErro("Falha ao decodificar o token. Faça login novamente.");
+            }
         } else {
             setErro("Token não encontrado. Faça login novamente.");
         }
@@ -60,7 +66,7 @@ const Navbar = () => {
                                 title=""
                                 btnType="button"
                                 containerStyles="text-black rounded-full bg-white min-w-[60px] border"
-                                rightIcon="/profile-icon.png"
+                                rightIcon="/profile-icon.svg"
                             />
                         </Link>
                     )}
