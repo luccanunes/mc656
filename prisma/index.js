@@ -33,7 +33,7 @@ app.post('/usuarios', async (req, res) => {
   const { nome, email, senha, deficiencias } = req.body;
 
   const hashedPassword = await bcrypt.hash(senha, 10);
-
+  console.log(req.body);
   try {
     const usuario = await prisma.usuario.create({
       data: {

@@ -52,7 +52,7 @@ export const BentoGridItem = ({
                     priority
                 />
             </div>
-            <div className="z-50 group-hover/bento:translate-x-2 transition duration-200 ">
+            <div className="z-10 group-hover/bento:translate-x-2 transition duration-200 ">
                 <div
                     className="font-sans font-bold text-white mb-2 mt-2"
                     style={{
