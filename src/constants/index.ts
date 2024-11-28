@@ -76,6 +76,23 @@ export const host = {
     experience: "2 anos na plataforma",
 };
 export const placesData: PlaceDetailsType = {
+    "museu-do-louvre": {
+        cidade: "Paris",
+        items: [
+            {
+                title: "Coleções de Arte",
+                description: "Explore obras famosas como a Mona Lisa e a Vênus de Milo.",
+                className: "md:col-span-2",
+                backgroundImage: "https://ogimg.infoglobo.com.br/in/23770337-e3e-a6e/FT1086A/Mona-Lisa-no-Louvre.jpg",
+            },
+            {
+                title: "Exposições Temporárias",
+                description: "Descubra exposições exclusivas de artistas renomados.",
+                className: "md:col-span-1",
+                backgroundImage: "https://mus3ums.com/media/Museum/1336.jpg",
+            },
+        ],
+    },
     "parque-ibirapuera": {
         cidade: "São Paulo",
         items: [
@@ -121,32 +138,103 @@ export const placesData: PlaceDetailsType = {
                     "Saiba por que Copacabana é conhecida mundialmente.",
 
                 className: "md:col-span-2",
-                backgroundImage: "/Parque Ibirapuera.jpg",
+                backgroundImage: "https://tourb.com.br/img/lugares/rio-de-janeiro/praia-de-copacabana.jpg",
             },
             {
                 title: "Vida Noturna",
                 description: "Explore bares, restaurantes e diversão noturna.",
 
                 className: "md:col-span-1",
-                backgroundImage: "/Parque Ibirapuera.jpg",
+                backgroundImage: "https://cariocaria.com.br/wp-content/uploads/2016/11/cobertura-pestana-rio-atlantica-noite-1170x658.jpg",
             },
             {
                 title: "Esportes na Praia",
                 description: "Acompanhe o vôlei e outros esportes ao ar livre.",
 
                 className: "md:col-span-1",
-                backgroundImage: "/Parque Ibirapuera.jpg",
+                backgroundImage: "https://i0.wp.com/prdnetshoes.wpcomstaging.com/wp-content/uploads/2021/11/esportesnaareia_20211115.png?fit=1256%2C500&ssl=1",
             },
             {
-                title: "Esportes na Praia",
-                description: "Acompanhe o vôlei e outros esportes ao ar livre.",
+                title: "Comércio",
+                description: "Aproveite o comércio na praia!",
 
                 className: "md:col-span-2",
-                backgroundImage: "/Parque Ibirapuera.jpg",
+                backgroundImage: "https://images.squarespace-cdn.com/content/v1/517e9335e4b0847823500845/1371227402305-JNJ08NTR37WSEGTKNWVO/quiosque-orla-de-copacabana.jpg?format=1000w",
+            },
+        ],
+    },
+    "central-park": {
+        cidade: "New York",
+        items: [
+            {
+                title: "Um Ícone de Nova York",
+                description: "Explore o Central Park, um dos parques mais famosos do mundo.",
+                className: "md:col-span-2",
+                backgroundImage: "https://olmsted.org/wp-content/uploads/2023/06/Park-Aerial_20190604_04-1-scaled.jpg",
+            },
+            {
+                title: "Passeios de Barco",
+                description: "Navegue nos lagos icônicos do Central Park.",
+                className: "md:col-span-1",
+                backgroundImage: "https://www.viajenaviagem.com/wp-content/uploads/2013/10/nova-york-central-park-thelake-1920x1080-1.jpg.webp",
+            },
+        ],
+    },
+    "sydney-opera-house": {
+        cidade: "Sydney",
+        items: [
+            {
+                title: "Arquitetura Icônica",
+                description: "Conheça um dos edifícios mais famosos do século XX.",
+                className: "md:col-span-2",
+                backgroundImage: "https://cdn-imgix.headout.com/tour/20072/TOUR-IMAGE/d85280d5-3c4f-4f54-bd7a-6fc5cc68597f-10732-sydney-sydney-and-bondi-tour-with-sydney-opera-house-tour-01.jpg",
+            },
+            {
+                title: "Espetáculos",
+                description: "Assista a óperas, balés e concertos de renome internacional.",
+                className: "md:col-span-2",
+                backgroundImage: "https://www.digitalavmagazine.com/wp-content/uploads/2013/05/Opera-House-Sydney-3.jpg",
+            },
+        ],
+    },
+
+    "museu-de-arte-de-sao-paulo": {
+        cidade: "São Paulo",
+        items: [
+            {
+                title: "Exposição Permanente",
+                description: "Admire obras de artistas renomados como Van Gogh e Monet.",
+                className: "md:col-span-2",
+                backgroundImage: "https://www.vounajanela.com/wp-content/uploads/2020/10/masp-saopaulo-9-1024x584.jpg",
+            },
+            {
+                title: "Atividades Educativas",
+                description: "Participe de oficinas e palestras sobre história da arte.",
+                className: "md:col-span-1",
+                backgroundImage: "https://assets.masp.org.br/images/es3.jpg",
+            },
+        ],
+    },
+
+    "jardim-botanico-do-rio-de-janeiro": {
+        cidade: "Rio de Janeiro",
+        items: [
+            {
+                title: "Coleção de Plantas",
+                description: "Explore a vasta coleção de plantas tropicais e exóticas.",
+                className: "md:col-span-2",
+                backgroundImage: "https://freewalkertours.com/wp-content/uploads/Orquid%C3%A1rio_Jardim_Bot%C3%A2nico_2-1030x687.jpg",
+            },
+            {
+                title: "Observação de Aves",
+                description: "Descubra espécies de aves em seu habitat natural.",
+                className: "md:col-span-1",
+                backgroundImage: "https://institucional.ufrrj.br/jardimbotanico/files/2024/10/Imagem-1.jpg",
             },
         ],
     },
 };
+
 export const reviews = [
     {
         quote: "Uma experiência inesquecível! O parque é lindo e cheio de história.",
