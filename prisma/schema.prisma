@@ -33,6 +33,7 @@ model Local {
   avaliacoes  Avaliacao[]
   tiposDeAcessibilidade String? // Armazenado como string delimitada
   recursosDisponiveis   String? // Armazenado como string delimitada
+  nota                  Float?   // Nota média, inicialmente nula
 }
 
 model Avaliacao {
