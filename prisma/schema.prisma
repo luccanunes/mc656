@@ -26,16 +26,18 @@ model Usuario {
 }
 
 model Local {
-  id          Int        @id @default(autoincrement())
-  nome        String
-  cidade      String
-  endereco    String     
-  descricao   String
-  imagem      String?
-  avaliacoes  Avaliacao[]
-  tiposDeAcessibilidade String? // Armazenado como string delimitada
-  recursosDisponiveis   String? // Armazenado como string delimitada
-  nota                  Float?   // Nota média, inicialmente nula
+  id                    Int       @id @default(autoincrement())
+  nome                  String
+  cidade                String
+  endereco              String
+  descricao             String
+  imagem                String?
+  avaliacoes            Avaliacao[]
+  tiposDeAcessibilidade String?  // Serializado
+  recursosDisponiveis   String?  // Serializado
+  nota                  Float?   // Nota média
+  criadorId             Int      // Refere-se ao id do usuário criador
+  criador               Usuario  @relation(fields: [criadorId], references: [id]) // Relação com o usuário
 }
 
 model Avaliacao {
