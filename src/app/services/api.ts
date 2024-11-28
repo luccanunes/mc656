@@ -89,7 +89,6 @@ export async function adicionarAvaliacao(
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ nota, comentario, usuarioId, localId }),
     });

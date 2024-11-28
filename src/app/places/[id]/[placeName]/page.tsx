@@ -177,14 +177,36 @@ const PlaceDetails = async ({ params }: PageProps) => {
                     </h1>
                 </div>
                 <div className="mt-10 mb-10 mx:auto w-full">
+                    <h1 className="text-[27px] text-black-100 font-light mb-10">
+                        Avaliações
+                    </h1>
                     {place.avaliacoes && place.avaliacoes.length > 0 ? (
-                        <InfiniteMovingCards key={item.id || index} speed="fast" items={place.avaliacoes} />
+                        // Primeiro criamos o array formatado
+                        (() => {
+                            const reviewsArray = place.avaliacoes.map(
+                                (avaliacao: any) => ({
+                                    key: avaliacao.id, // Chave única para renderização
+                                    quote: avaliacao.comentario,
+                                    name: avaliacao.usuario.id, // Certifique-se que 'usuario.nome' existe no objeto
+                                    title: `Nota: ${avaliacao.nota}`,
+                                })
+                            );
+
+                            // Renderizamos o componente com o array formatado
+                            return (
+                                <InfiniteMovingCards
+                                    speed="fast"
+                                    items={reviewsArray}
+                                />
+                            );
+                        })()
                     ) : (
                         <h2 className="text-[20px] text-black-100 font-bold mb-10">
                             Não há avaliações ainda!
                         </h2>
                     )}
                 </div>
+
                 <div className="mt-10 mb-10 mx:auto w-full">
                     <CadastroAvaliacao localId={numericId}></CadastroAvaliacao>
                 </div>
