@@ -44,7 +44,7 @@ export function Cadastro({ onClose }: { onClose: () => void }) {
 
     try {
       const fullName = `${nome} ${sobrenome}`;
-      await criarUsuario(fullName, email, senha); // Integre a lista de deficiências no backend, se necessário
+      await criarUsuario(fullName, email, senha, deficiencias.join(',')); // Integre a lista de deficiências no backend, se necessário
       setSuccess("Cadastro realizado com sucesso!");
       setTimeout(() => {
         onClose();

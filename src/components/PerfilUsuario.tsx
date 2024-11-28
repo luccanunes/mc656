@@ -119,8 +119,8 @@ const PerfilUsuario = () => {
                             <li>📅 Data de Criação: {usuario.createdAt
                                     ? new Date(usuario.createdAt).toLocaleDateString()
                                     : "Data não disponível"}</li>
-                            <li>♿ Deficiencias: {usuario.deficiencias}</li>
                             <li>📍 Locais Criados: {isDataEmpty ? 0 : usuario.locais.length}</li>
+                            <li>♿ Deficiencias: {usuario.deficiencias.replace(/,/g, ", ")}</li>
                         </ul>
                     </div>
 
