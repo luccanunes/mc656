@@ -105,7 +105,9 @@ app.get('/usuarios/:id', async (req, res) => {
         nome: true,
         imagem: true,
         deficiencias: true, // Assumindo que deficiencias está como uma lista de strings ou campo similar
-        createdAt: true
+        avaliacoes: true,
+        createdAt: true,
+        email: true
       },
     });
 
