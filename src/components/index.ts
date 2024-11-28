@@ -8,6 +8,8 @@ import Searchcity from "./SearchCity";
 import PlaceCard from "./PlaceCard";
 import { Login } from "./Login";
 import { Cadastro } from "./Cadastro";
+import { CadastroLocal } from "./CadastroLocal";
+import { CadastroAvaliacao } from "./CadastroAvaliacao";
 
 export {
     Hero,
@@ -19,5 +21,7 @@ export {
     Searchcity,
     PlaceCard,
     Login,
-    Cadastro
+    Cadastro,
+    CadastroLocal,
+    CadastroAvaliacao,
 };

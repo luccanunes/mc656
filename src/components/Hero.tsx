@@ -5,7 +5,13 @@ import { CustomButton } from ".";
 import heroImage from "@/public/image-from-rawpixel-id-15871163-png.png";
 
 const Hero = () => {
-    const handleScroll = () => {};
+    const handleScroll = () => {
+        const targetSection = document.getElementById("bottom-section"); // Substitua com o ID do elemento da seção alvo
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
     return (
         <div className="hero">
             <div className="flex-1 pt-36 padding-x">

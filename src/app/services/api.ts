@@ -120,12 +120,11 @@ export async function listarLocais() {
     return data;
 }
 
-export async function obterUsuario(userId: string, token: string) {
+export async function obterUsuario(userId: string) {
     const response = await fetch(`${API_BASE_URL}/usuarios/${userId}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Passa o token no cabeçalho
         },
     });
 
@@ -158,3 +157,28 @@ export function getUserId(): string | null {
     }
     return null;
 }
+
+export async function fetchLocal(id: number){
+    try {
+      const response = await fetch(`${API_BASE_URL}/locais/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('Local não encontrado.');
+        } else {
+          throw new Error('Erro ao buscar informações do local.');
+        }
+      }
+  
+      const localData= await response.json();
+      return localData;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }

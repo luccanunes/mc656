@@ -6,6 +6,7 @@ export interface PlaceProps {
     nota: number;
     nome: string;
     endereco: string;
+    id: number;
 }
 
 export interface FilterProps {

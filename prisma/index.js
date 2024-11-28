@@ -106,14 +106,29 @@ app.get("/usuarios/:id", async (req, res) => {
       where: {
         id: parseInt(id),
       },
-      select: {
-        id: true,
-        nome: true,
-        imagem: true,
-        deficiencias: true, // Assumindo que deficiencias está como uma lista de strings ou campo similar
-        avaliacoes: true,
-        createdAt: true,
-        email: true
+      include: {
+        avaliacoes: {
+          include: {
+            local: {
+              select: {
+                id: true,
+                nome: true,
+              },
+            },
+          },
+        },
+        locais: {
+          select: {
+            id: true,
+            nome: true,
+            endereco: true,
+            descricao: true,
+            cidade: true,
+            tiposDeAcessibilidade: true,
+            recursosDisponiveis: true,
+            nota: true,
+          },
+        },
       },
     });
 
@@ -129,6 +144,7 @@ app.get("/usuarios/:id", async (req, res) => {
     });
   }
 });
+
 
 // Logar usuário
 app.post("/usuarios/login", async (req, res) => {
@@ -251,27 +267,36 @@ app.get("/locais", async (req, res) => {
 
 // Obter um local específico e suas avaliações
 app.get("/locais/:id", async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const local = await prisma.local.findUnique({
-      where: {
-        id: parseInt(id),
-      },
-      include: {
-        avaliacoes: true,
-      },
-    });
-
-    if (!local) {
-      return res.status(404).json({ error: "Local não encontrado." });
+    const { id } = req.params;
+  
+    try {
+      const local = await prisma.local.findUnique({
+        where: {
+          id: parseInt(id),
+        },
+        include: {
+          avaliacoes: {
+            include: {
+              usuario: { // Inclua informações do usuário relacionado
+                select: {
+                  nome: true, // Inclua apenas os campos necessários, como `nome`
+                },
+              },
+            },
+          },
+        },
+      });
+  
+      if (!local) {
+        return res.status(404).json({ error: "Local não encontrado." });
+      }
+  
+      res.json(local);
+    } catch (error) {
+      res.status(500).json({ error: "Erro ao buscar informações do local." });
     }
-
-    res.json(local);
-  } catch (error) {
-    res.status(500).json({ error: "Erro ao buscar informações do local." });
-  }
-});
+  });
+  
 
 app.listen(3001, () => {
   console.log("Servidor rodando na porta 3001");

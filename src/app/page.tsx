@@ -17,6 +17,7 @@ export default function Home() {
                 const response = await listarLocais();
                 setPlaces(response);
                 setFilteredPlaces(response); // Inicializa com todos os lugares
+                console.log(places)
             } catch (err) {
                 setError("Erro ao carregar os locais.");
             } finally {
@@ -43,7 +44,7 @@ export default function Home() {
                         setFilteredPlaces={setFilteredPlaces} // Atualiza os filtrados
                     />
                 </div>
-                <div>
+                <div id="bottom-section">
                     {error ? (
                         <div className="home__error-container">
                             <h2 className="text-black text-xl font-bold">
@@ -53,12 +54,13 @@ export default function Home() {
                     ) : filteredPlaces.length > 0 ? (
                         <section>
                             <div className="home__places-wrapper">
-                                {filteredPlaces.map((place, index) => (
+                                {filteredPlaces.map((place, index) => {console.log("jorge") ;console.log(place) ;return(
                                     <PlaceCard
+                                    
                                         key={place.nome || index}
                                         place={place}
                                     />
-                                ))}
+                                )})}
                             </div>
                         </section>
                     ) : (
