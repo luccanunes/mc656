@@ -105,6 +105,7 @@ app.get('/usuarios/:id', async (req, res) => {
         nome: true,
         imagem: true,
         deficiencias: true, // Assumindo que deficiencias está como uma lista de strings ou campo similar
+        createdAt: true
       },
     });
 
@@ -157,14 +158,13 @@ app.post('/locais', authenticateToken, async (req, res) => {
         tiposDeAcessibilidade,
         recursosDisponiveis,
         imagem,
-        nota: 0.0 // Inicializa a nota como zero
+        nota: null // Inicializa a nota como zero
       },
       select: {
         id: true,
         nome: true,
         endereco: true,
         descricao: true,
-        createdAt: true,
         tiposDeAcessibilidade: true,
         recursosDisponiveis: true,
         imagem: true,
