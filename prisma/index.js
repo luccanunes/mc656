@@ -106,14 +106,29 @@ app.get("/usuarios/:id", async (req, res) => {
       where: {
         id: parseInt(id),
       },
-      select: {
-        id: true,
-        nome: true,
-        imagem: true,
-        deficiencias: true, // Assumindo que deficiencias está como uma lista de strings ou campo similar
-        avaliacoes: true,
-        createdAt: true,
-        email: true
+      include: {
+        avaliacoes: {
+          include: {
+            local: {
+              select: {
+                id: true,
+                nome: true,
+              },
+            },
+          },
+        },
+        locais: {
+          select: {
+            id: true,
+            nome: true,
+            endereco: true,
+            descricao: true,
+            cidade: true,
+            tiposDeAcessibilidade: true,
+            recursosDisponiveis: true,
+            nota: true,
+          },
+        },
       },
     });
 
@@ -129,6 +144,7 @@ app.get("/usuarios/:id", async (req, res) => {
     });
   }
 });
+
 
 // Logar usuário
 app.post("/usuarios/login", async (req, res) => {

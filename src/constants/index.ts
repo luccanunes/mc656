@@ -121,8 +121,8 @@ export const placesData: PlaceDetailsType = {
                 backgroundImage: "/Parque Ibirapuera.jpg",
             },
             {
-                title: "Esportes na Praia",
-                description: "Acompanhe o vôlei e outros esportes ao ar livre.",
+                title: "Esportes",
+                description: "Acompanhe esportes ao ar livre.",
 
                 className: "md:col-span-2",
                 backgroundImage: "/ibirapuera3.jpg",

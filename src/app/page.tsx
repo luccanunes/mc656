@@ -44,7 +44,7 @@ export default function Home() {
                         setFilteredPlaces={setFilteredPlaces} // Atualiza os filtrados
                     />
                 </div>
-                <div>
+                <div id="bottom-section">
                     {error ? (
                         <div className="home__error-container">
                             <h2 className="text-black text-xl font-bold">

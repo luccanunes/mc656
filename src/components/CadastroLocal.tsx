@@ -37,16 +37,33 @@ export function CadastroLocal({ onClose }: { onClose: () => void }) {
         e.preventDefault();
         setError(null);
         setSuccess(null);
-
+    
+        // Verifica se todos os campos obrigatórios estão preenchidos
+        if (!nome || !endereco || !cidade || !descricao) {
+            setError("Por favor, preencha todos os campos obrigatórios.");
+            return;
+        }
+    
+        // Verifica se pelo menos um tipo de acessibilidade foi selecionado
+        if (tiposDeAcessibilidade.length === 0) {
+            setError("Por favor, selecione pelo menos um tipo de acessibilidade.");
+            return;
+        }
+    
+        // Verifica se pelo menos um recurso foi selecionado
+        if (recursosSelecionados.length === 0) {
+            setError("Por favor, selecione pelo menos um recurso disponível.");
+            return;
+        }
+    
         const token = localStorage.getItem("token_acessofacil");
         if (!token) {
             setError("Você precisa estar logado para registrar um local.");
             return;
         }
-
+    
         try {
-            // O `tiposDeAcessibilidade` e `recursosSelecionados` já são arrays de strings,
-            // então podemos enviá-los diretamente.
+            // Envia os dados do local para o backend
             await registrarLocal(
                 nome,
                 endereco,
@@ -57,7 +74,7 @@ export function CadastroLocal({ onClose }: { onClose: () => void }) {
                 tiposDeAcessibilidade, // Aqui passamos o array diretamente
                 recursosSelecionados // Aqui passamos o array diretamente
             );
-
+    
             setSuccess("Local cadastrado com sucesso!");
             setTimeout(() => {
                 onClose();
@@ -68,6 +85,7 @@ export function CadastroLocal({ onClose }: { onClose: () => void }) {
             setError("Erro ao cadastrar local. Tente novamente.");
         }
     };
+    
 
     const handleCheckboxChange = (
         item: string,
