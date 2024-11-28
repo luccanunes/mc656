@@ -12,7 +12,7 @@ interface PlaceCardProps {
 }
 
 const PlaceCard = ({ place }: PlaceCardProps) => {
-    const { tiposDeAcessibilidade, cidade, nota, nome, endereco } = place;
+    const { tiposDeAcessibilidade, cidade, nota, nome, endereco, id } = place;
 
     // Transforma a string de acessibilidade em um array de strings
     const acessibilidadeArray = tiposDeAcessibilidade ? tiposDeAcessibilidade.split(",") : [];
@@ -20,7 +20,7 @@ const PlaceCard = ({ place }: PlaceCardProps) => {
     const handleClick = () => {
         // Redireciona para a página com base no nome do local
         const formattedName = nome.replace(/\s+/g, "-").toLowerCase(); // Substitui espaços por hífens e deixa o nome em minúsculas
-        router.push(`/places/${formattedName}`);
+        router.push(`/places/${id}/${formattedName}`);
     };
 
     return (
