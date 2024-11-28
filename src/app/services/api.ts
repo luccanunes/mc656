@@ -2,13 +2,13 @@ import { FilterProps } from "@/types";
 
 const API_BASE_URL = "http://localhost:3001";
 
-export async function criarUsuario(nome: string, email: string, senha: string) {
+export async function criarUsuario(nome: string, email: string, senha: string, deficiencias: string) {
     const response = await fetch(`${API_BASE_URL}/usuarios`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ nome, email, senha, createdAt: new Date() }),
+        body: JSON.stringify({ nome, email, senha, createdAt: new Date() , deficiencias}),
     });
 
     if (!response.ok) {
