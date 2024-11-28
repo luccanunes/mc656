@@ -20,11 +20,25 @@ model Usuario {
   senha        String
   imagem       String?
   avaliacoes   Avaliacao[]
-  deficiencias String?    // Armazena deficiências como uma string delimitada
-  createdAt    DateTime @default(now())
+  deficiencias String?    // Armazenado como string delimitada
+  createdAt    DateTime   @default(now())
+  locais       Local[]    // Relação com locais criados
 }
 
 model Local {
+<<<<<<< HEAD
+  id                    Int       @id @default(autoincrement())
+  nome                  String
+  endereco              String
+  descricao             String
+  imagem                String?
+  avaliacoes            Avaliacao[]
+  tiposDeAcessibilidade String?  // Serializado
+  recursosDisponiveis   String?  // Serializado
+  nota                  Float?   // Nota média
+  criadorId             Int      // Refere-se ao id do usuário criador
+  criador               Usuario  @relation(fields: [criadorId], references: [id]) // Relação com o usuário
+=======
   id          Int        @id @default(autoincrement())
   nome        String
   cidade      String
@@ -35,6 +49,7 @@ model Local {
   tiposDeAcessibilidade String? // Armazenado como string delimitada
   recursosDisponiveis   String? // Armazenado como string delimitada
   nota                  Float?   // Nota média, inicialmente nula
+>>>>>>> develop
 }
 
 model Avaliacao {
