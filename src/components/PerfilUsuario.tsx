@@ -68,9 +68,12 @@ const PerfilUsuario = () => {
                                 <p className="text-gray-500">avaliações</p>
                             </div>
                             <div className="flex flex-col items-center">
-                                <h3 className="text-xl font-bold">10</h3>
+                                <h3 className="text-xl font-bold">{usuario.createdAt
+                                    ? new Date(usuario.createdAt).toLocaleDateString()
+                                    : "Data não disponível"}
+                                </h3>
                                 <p className="text-gray-500">
-                                    anos no AcessoFácil
+                                    criação da conta
                                 </p>
                             </div>
                         </div>
@@ -106,17 +109,18 @@ const PerfilUsuario = () => {
                     <div className="p-6 border-b border-gray-300">
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-2xl font-bold">
-                                Sobre {usuario.nome}
+                                Sobre {usuario.nome.trim().split(/\s+/)[0]}
                             </h2>
                         </div>
                         <ul className="grid grid-cols-2 gap-4">
-                            <li>📆 Nasci na década de {usuario.decada}</li>
-                            <li>💻 Meu trabalho: {usuario.trabalho}</li>
-                            <li>🎵 Curiosidade: {usuario.curiosidade}</li>
-                            <li>📍 Moro em: {usuario.localizacao}</li>
-                            <li>📖 Onde estudei: {usuario.educacao}</li>
-                            <li>⏳ Passo muito tempo: {usuario.hobby}</li>
-                            <li>🌍 Idiomas: {usuario.idiomas}</li>
+                            <li>👤 Nome Completo: {usuario.nome}</li>
+                            <li>📧 Email: {usuario.email}</li>
+                            <li>💻 Quantidade de Avaliações: {(usuario.avaliacoes).length}</li>
+                            <li>📅 Data de Criação: {usuario.createdAt
+                                    ? new Date(usuario.createdAt).toLocaleDateString()
+                                    : "Data não disponível"}</li>
+                            <li>📍 Locais Criados: {isDataEmpty ? 0 : usuario.locais.length}</li>
+                            <li>♿ Deficiencias: {usuario.deficiencias.replace(/,/g, ", ")}</li>
                         </ul>
                     </div>
 
