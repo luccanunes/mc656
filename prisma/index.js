@@ -148,7 +148,7 @@ app.post('/locais', authenticateToken, async (req, res) => {
     descricao,
     tiposDeAcessibilidade,
     recursosDisponiveis,
-    imagem,
+    imagem
   } = req.body;
 
   try {
@@ -157,10 +157,11 @@ app.post('/locais', authenticateToken, async (req, res) => {
         nome,
         endereco,
         descricao,
-        tiposDeAcessibilidade,
-        recursosDisponiveis,
         imagem,
-        nota: null // Inicializa a nota como zero
+        tiposDeAcessibilidade, // Serializar o array
+        recursosDisponiveis,    // Serializar o array
+        nota: null, // Inicializa a nota como null
+        criadorId: req.user.userId  // Associa o usuário atual como criador
       },
       select: {
         id: true,
@@ -170,7 +171,13 @@ app.post('/locais', authenticateToken, async (req, res) => {
         tiposDeAcessibilidade: true,
         recursosDisponiveis: true,
         imagem: true,
-        nota: true
+        nota: true,
+        criador: {
+          select: {
+            id: true,
+            nome: true,
+          }
+        }
       }
     });
     res.json(local);
