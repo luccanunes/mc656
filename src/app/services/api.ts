@@ -8,7 +8,7 @@ export async function criarUsuario(nome: string, email: string, senha: string) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ nome, email, senha }),
+        body: JSON.stringify({ nome, email, senha, createdAt: new Date() }),
     });
 
     if (!response.ok) {

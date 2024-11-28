@@ -101,18 +101,21 @@ app.get("/usuarios/:id/avaliacoes", authenticateToken, async (req, res) => {
 app.get("/usuarios/:id", async (req, res) => {
     const { id } = req.params;
 
-    try {
-        const usuario = await prisma.usuario.findUnique({
-            where: {
-                id: parseInt(id),
-            },
-            select: {
-                id: true,
-                nome: true,
-                imagem: true,
-                deficiencias: true, // Assumindo que deficiencias está como uma lista de strings ou campo similar
-            },
-        });
+  try {
+    const usuario = await prisma.usuario.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+      select: {
+        id: true,
+        nome: true,
+        imagem: true,
+        deficiencias: true, // Assumindo que deficiencias está como uma lista de strings ou campo similar
+        avaliacoes: true,
+        createdAt: true,
+        email: true
+      },
+    });
 
         if (!usuario) {
             return res.status(404).json({ error: "Usuário não encontrado." });
@@ -166,6 +169,7 @@ app.post("/locais", authenticateToken, async (req, res) => {
                 imagem,
                 tiposDeAcessibilidade,
                 recursosDisponiveis,
+                nota: null,
             },
             select: {
                 id: true,
@@ -175,6 +179,8 @@ app.post("/locais", authenticateToken, async (req, res) => {
                 descricao: true,
                 tiposDeAcessibilidade: true,
                 recursosDisponiveis: true,
+                imagem: true,
+                nota: true,
             },
         });
         res.json(local);
@@ -182,27 +188,49 @@ app.post("/locais", authenticateToken, async (req, res) => {
         console.error("Erro ao criar local:", error);
         res.status(500).json({ error: "Erro ao criar local." });
     }
+
 });
 
-// Adicionar avaliação - Protegido por autenticação
-app.post("/avaliacoes", authenticateToken, async (req, res) => {
-    const { nota, comentario, usuarioId, localId } = req.body;
-    console.log(req.body);
+// Adicionar avaliação e atualizar a nota média do local
+app.post('/avaliacoes', authenticateToken, async (req, res) => {
+  const { nota, comentario, usuarioId, localId } = req.body;
 
-    try {
-        const avaliacao = await prisma.avaliacao.create({
-            data: {
-                nota,
-                comentario,
-                usuarioId,
-                localId,
-            },
-        });
-        res.json(avaliacao);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: "Erro ao adicionar avaliação." });
-    }
+  try {
+    // Adicionar nova avaliação
+    const novaAvaliacao = await prisma.avaliacao.create({
+      data: {
+        nota,
+        comentario,
+        usuarioId,
+        localId
+      }
+    });
+
+    // Recalcular a nota média do local
+    const avaliacoes = await prisma.avaliacao.findMany({
+      where: {
+        localId: localId
+      }
+    });
+
+    const somaNotas = avaliacoes.reduce((acc, avaliacao) => acc + avaliacao.nota, 0);
+    const novaMediaNotas = somaNotas / avaliacoes.length;
+
+    // Atualizar a nota média no local
+    await prisma.local.update({
+      where: {
+        id: localId
+      },
+      data: {
+        nota: novaMediaNotas
+      }
+    });
+
+    res.json(novaAvaliacao);
+  } catch (error) {
+    console.error('Erro ao adicionar avaliação:', error);
+    res.status(500).json({ error: 'Erro ao adicionar avaliação.' });
+  }
 });
 
 // Listar locais - Pode ser acessado por todos (não protegido)
