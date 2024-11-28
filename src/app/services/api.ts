@@ -1,3 +1,5 @@
+import { FilterProps } from "@/types";
+
 const API_BASE_URL = "http://localhost:3001";
 
 export async function criarUsuario(nome: string, email: string, senha: string) {
@@ -39,16 +41,32 @@ export async function logarUsuario(email: string, senha: string) {
 export async function registrarLocal(
     nome: string,
     endereco: string,
+    cidade: string,
     descricao: string,
-    token: string
+    token: string,
+    imagem?: string,
+    tiposDeAcessibilidade?: string[],
+    recursosDisponiveis?: string[]
 ) {
+    // Converta arrays para strings delimitadas, se fornecidos
+    const acessibilidadeString = tiposDeAcessibilidade?.join(",") || null;
+    const recursosString = recursosDisponiveis?.join(",") || null;
+
     const response = await fetch(`${API_BASE_URL}/locais`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ nome, endereco, descricao }),
+        body: JSON.stringify({
+            nome,
+            endereco,
+            cidade,
+            descricao,
+            imagem,
+            tiposDeAcessibilidade: acessibilidadeString,
+            recursosDisponiveis: recursosString,
+        }),
     });
 
     if (!response.ok) {
@@ -56,7 +74,7 @@ export async function registrarLocal(
     }
 
     const data = await response.json();
-    console.log(data);
+    console.log("Local registrado:", data);
     return data;
 }
 

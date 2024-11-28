@@ -77,7 +77,7 @@ export const host = {
 };
 export const placesData: PlaceDetailsType = {
     "parque-ibirapuera": {
-        estado: "São Paulo",
+        cidade: "São Paulo",
         items: [
             {
                 title: "História do Parque",
@@ -113,7 +113,7 @@ export const placesData: PlaceDetailsType = {
         ],
     },
     "praia-de-copacabana": {
-        estado: "Rio de Janeiro",
+        cidade: "Rio de Janeiro",
         items: [
             {
                 title: "A Praia Mais Famosa",

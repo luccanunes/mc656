@@ -5,19 +5,24 @@ import { PlaceProps } from "@/types";
 import CustomButton from "./CustomButton";
 import { DirectionAwareHover } from "./ui/direction-aware-hover";
 import { useRouter } from "next/navigation";
+import { Key } from "react";
 
 interface PlaceCardProps {
     place: PlaceProps;
 }
 
 const PlaceCard = ({ place }: PlaceCardProps) => {
-    const { acessibilidade, cidade, nota, nome, endereco } = place;
+    const { tiposDeAcessibilidade, cidade, nota, nome, endereco } = place;
+
+    // Transforma a string de acessibilidade em um array de strings
+    const acessibilidadeArray = tiposDeAcessibilidade ? tiposDeAcessibilidade.split(",") : [];
     const router = useRouter();
     const handleClick = () => {
         // Redireciona para a página com base no nome do local
         const formattedName = nome.replace(/\s+/g, "-").toLowerCase(); // Substitui espaços por hífens e deixa o nome em minúsculas
         router.push(`/places/${formattedName}`);
     };
+
     return (
         <div className="place-card group">
             <div className="place-card__content">
@@ -36,17 +41,19 @@ const PlaceCard = ({ place }: PlaceCardProps) => {
             </div>
             <div className="relative flex w-full mt-2">
                 <div className="flex group-hover:invisible w-full justify-between text-gray">
-                    {acessibilidade.map((acess, index) => (
-                        <div key={index} className="flex flex-col justify-center items-center gap-2 ">
+                    {acessibilidadeArray.map((acess: string, index: Key | null | undefined) => (
+                        <div
+                            key={index}
+                            className="flex flex-col justify-center items-center gap-2 "
+                        >
                             <Image
-                                src={`/${acess}.jpg`}
-                                alt=""
+                                src={`/${acess.trim()}.jpg`}
+                                alt={acess}
                                 width={20}
                                 height={20}
                                 className="rounded-full"
                             />
-
-                            <p className="text-[12px]">{acess}</p>
+                            <p className="text-[12px]">{acess.trim()}</p>
                         </div>
                     ))}
                 </div>
