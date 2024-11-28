@@ -119,7 +119,7 @@ export function CadastroLocal({ onClose }: { onClose: () => void }) {
                     />
                 </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
-                    <Label htmlFor="Cidade">cidade</Label>
+                    <Label htmlFor="Cidade">Cidade</Label>
                     <Input
                         id="cidade"
                         placeholder="São Paulo"

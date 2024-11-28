@@ -16,7 +16,7 @@ const PerfilUsuario = () => {
     useEffect(() => {
         const token = localStorage.getItem("token_acessofacil");
         if (token) {
-            const userId = getUserId(token);
+            const userId = getUserId();
             if (userId) {
                 obterUsuario(userId)
                     .then((dados: any) => setUsuario(dados))

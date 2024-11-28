@@ -23,7 +23,7 @@ export function CadastroAvaliacao({localId}: {localId:number}) {
             setError("Você precisa estar logado para registrar uma avaliação.");
             return;
         }
-        const usuarioId: string = (getUserId(token) || '').toString();
+        const usuarioId: string = (getUserId() || '').toString();
         const numericId = parseInt(usuarioId, 10);
         if (!nota || !comentario.trim()) {
             setError("Todos os campos são obrigatórios.");

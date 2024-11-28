@@ -4,9 +4,9 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { InfiniteMovingCards } from "@/components/ui/moving-cards";
 import {
     listarLocais,
-    fetchLocal,
     getUserId,
     obterUsuario,
+    fetchLocal,
 } from "@/app/services/api"; // Certifique-se de que este é o método correto
 import { placesData } from "@/constants";
 import { CadastroAvaliacao, CustomButton } from "@/components";
@@ -177,29 +177,21 @@ const PlaceDetails = async ({ params }: PageProps) => {
                     </h1>
                 </div>
                 <div className="mt-10 mb-10 mx:auto w-full">
-                    <h1 className="text-[27px] text-black-100 font-light mb-10">
-                        Avaliações
-                    </h1>
                     {place.avaliacoes && place.avaliacoes.length > 0 ? (
-                        // Primeiro criamos o array formatado
-                        (() => {
-                            const reviewsArray = place.avaliacoes.map(
-                                (avaliacao: any) => ({
-                                    key: avaliacao.id, // Chave única para renderização
+                        <InfiniteMovingCards
+                            speed="fast"
+                            items={place.avaliacoes.map(
+                                (avaliacao: any, index: number) => ({
+                                    key: avaliacao.id || index, // Garante chave única
                                     quote: avaliacao.comentario,
-                                    name: avaliacao.usuario.id, // Certifique-se que 'usuario.nome' existe no objeto
+                                    name: `Avaliação ${avaliacao.id} - ${
+                                        avaliacao.usuario?.nome ||
+                                        "Usuário desconhecido"
+                                    }`,
                                     title: `Nota: ${avaliacao.nota}`,
                                 })
-                            );
-
-                            // Renderizamos o componente com o array formatado
-                            return (
-                                <InfiniteMovingCards
-                                    speed="fast"
-                                    items={reviewsArray}
-                                />
-                            );
-                        })()
+                            )}
+                        />
                     ) : (
                         <h2 className="text-[20px] text-black-100 font-bold mb-10">
                             Não há avaliações ainda!

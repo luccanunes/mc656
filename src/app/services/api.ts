@@ -89,6 +89,7 @@ export async function adicionarAvaliacao(
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ nota, comentario, usuarioId, localId }),
     });
@@ -148,14 +149,15 @@ export function decodeTokenManually(token: string): any {
     }
 }
 
-export function getUserId(token: string | null): string | null {
-    token = localStorage.getItem("token_acessofacil");
+export function getUserId(): string | null {
+    const token = localStorage.getItem("token_acessofacil");
     if (token) {
         const decoded = decodeTokenManually(token);
         return decoded?.userId || null; // Retorna o ID ou null se não existir
     }
     return null;
 }
+
 export async function fetchLocal(id: number){
     try {
       const response = await fetch(`${API_BASE_URL}/locais/${id}`, {
@@ -173,11 +175,10 @@ export async function fetchLocal(id: number){
         }
       }
   
-      const localData = await response.json();
+      const localData= await response.json();
       return localData;
     } catch (error) {
       console.error(error);
       return null;
     }
   }
-  
