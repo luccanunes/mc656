@@ -41,7 +41,7 @@ const PlaceDetails = ({ params }: PageProps) => {
     const formattedName = toTitleCase(placeName.replace(/-/g, " "));
 
     const placeDetails = placesData[placeName] || {
-        estado: "Desconhecido",
+        cidade: "Desconhecido",
         items: [],
     };
 
@@ -51,7 +51,7 @@ const PlaceDetails = ({ params }: PageProps) => {
                 {/* Titulo */}
                 <h1 className="text-[50px] font-extrabold">{formattedName}</h1>
                 <h1 className="text-[27px] text-black-100 font-light mb-10">
-                    {placeDetails.estado}
+                    {placeDetails.cidade}
                 </h1>
 
                 {/* Imagens */}

@@ -17,7 +17,6 @@ const PerfilUsuario = () => {
         const token = localStorage.getItem("token_acessofacil");
         if (token) {
             const userId = getUserId();
-            console.log(userId);
             if (userId) {
                 obterUsuario(userId, token)
                     .then((dados: any) => setUsuario(dados))
