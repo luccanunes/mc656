@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react";
 
 export interface PlaceProps {
-    acessibilidade: string[];
+    tiposDeAcessibilidade: string;
     cidade: string;
     nota: number;
     nome: string;
@@ -9,11 +9,8 @@ export interface PlaceProps {
 }
 
 export interface FilterProps {
-    city?: string;
-    year?: number;
-    acessibilidade?: string;
-    limit?: number;
-    fuel?: string;
+    cidade?: string;
+    nome?: string;
 }
 
 export interface HomeProps {
@@ -22,7 +19,7 @@ export interface HomeProps {
 
 export type PlaceDetailsType = {
     [key: string]: {
-        estado: string;
+        cidade: string;
         items: {
             title: string;
             description: string;

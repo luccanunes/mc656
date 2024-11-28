@@ -4,66 +4,39 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Searchcity from "./SearchCity";
+import { PlaceProps } from "@/types";
 
-const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
-    <button type="submit" className={`-ml-3 z-5 ${otherClasses}`}>
-        <Image
-            src={"/magnifying-glass.svg"}
-            alt={"magnifying glass"}
-            width={40}
-            height={40}
-            className="object-contain"
-        />
-    </button>
-);
+interface SearchBarProps {
+    places: PlaceProps[]; // Recebe os lugares para filtrar
+    setFilteredPlaces: (places: PlaceProps[]) => void; // Atualiza o array filtrado
+}
 
-const SearchBar = () => {
-    const [city, setcity] = useState("");
-    const [acessibilidade, setacessibilidade] = useState("");
+const SearchBar = ({ places, setFilteredPlaces }: SearchBarProps) => {
+    const [city, setCity] = useState("");
+    const [local, setLocal] = useState("");
 
-    const router = useRouter();
+    const handleSearch = () => {
+        // Aplica o filtro no array de lugares
+        const filteredPlaces = places.filter(
+            (place) =>
+                (city && place.cidade?.toLowerCase() === city.toLowerCase()) || // Filtra por cidade
+                (local && place.nome.toLowerCase().includes(local.toLowerCase())) // Filtra por nome
+        );
 
-    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        if (city.trim() === "" && acessibilidade.trim() === "") {
-            return alert("Please provide some input");
-        }
-
-        updateSearchParams(acessibilidade.toLowerCase(), city.toLowerCase());
-    };
-
-    const updateSearchParams = (acessibilidade: string, city: string) => {
-        // Create a new URLSearchParams object using the current URL search parameters
-        const searchParams = new URLSearchParams(window.location.search);
-
-        // Update or delete the 'acessibilidade' search parameter based on the 'acessibilidade' value
-        if (acessibilidade) {
-            searchParams.set("acessibilidade", acessibilidade);
-        } else {
-            searchParams.delete("acessibilidade");
-        }
-
-        // Update or delete the 'city' search parameter based on the 'city' value
-        if (city) {
-            searchParams.set("city", city);
-        } else {
-            searchParams.delete("city");
-        }
-
-        // Generate the new pathname with the updated search parameters
-        const newPathname = `${
-            window.location.pathname
-        }?${searchParams.toString()}`;
-
-        router.push(newPathname);
+        setFilteredPlaces(filteredPlaces);
     };
 
     return (
-        <form className="searchbar" onSubmit={handleSearch}>
+        <form
+            className="searchbar"
+            onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch();
+            }}
+        >
             <div className="searchbar__item">
-                <Searchcity city={city} setcity={setcity} />
-                <SearchButton otherClasses="sm:hidden" />
+                <Searchcity city={city} setcity={setCity} />
+                <SearchButton handleSearch={handleSearch} otherClasses="sm:hidden" />
             </div>
             <div className="searchbar__item">
                 <Image
@@ -75,17 +48,39 @@ const SearchBar = () => {
                 />
                 <input
                     type="text"
-                    name="acessibilidade"
-                    value={acessibilidade}
-                    onChange={e => setacessibilidade(e.target.value)}
+                    name="local"
+                    value={local}
+                    onChange={(e) => setLocal(e.target.value)}
                     placeholder="Parque Ibirapuera..."
                     className="searchbar__input"
                 />
-                <SearchButton otherClasses="sm:hidden" />
+                <SearchButton handleSearch={handleSearch} otherClasses="sm:hidden" />
             </div>
-            <SearchButton otherClasses="max-sm:hidden" />
+            <SearchButton handleSearch={handleSearch} otherClasses="max-sm:hidden" />
         </form>
     );
 };
+
+const SearchButton = ({
+    handleSearch,
+    otherClasses,
+}: {
+    handleSearch: () => void;
+    otherClasses: string;
+}) => (
+    <button
+        type="button"
+        onClick={handleSearch}
+        className={`-ml-3 z-5 ${otherClasses}`}
+    >
+        <Image
+            src={"/magnifying-glass.svg"}
+            alt={"magnifying glass"}
+            width={40}
+            height={40}
+            className="object-contain"
+        />
+    </button>
+);
 
 export default SearchBar;

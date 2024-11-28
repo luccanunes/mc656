@@ -1,36 +1,32 @@
 "use client";
-import Menu from "../components/ui/menu";
-import Acesso from "../components/ui/acesso";
-import Navbar from "../components/ui/navbar";
-import HomeMain from "../components/home-main";
-import { CustomFilter, Hero, PlaceCard, SearchBar } from "@/components";
-import { acessibility } from "@/constants";
+
+import { useEffect, useState } from "react";
+import { Hero, PlaceCard, SearchBar } from "@/components";
+import { PlaceProps } from "@/types";
 import { listarLocais } from "./services/api";
 
 export default function Home() {
-    //Puxar do banco de dados os locais aqui
-    const allPlaces=  listarLocais();
-    console.log(allPlaces);
+    const [places, setPlaces] = useState<PlaceProps[]>([]); // Todos os lugares
+    const [filteredPlaces, setFilteredPlaces] = useState<PlaceProps[]>([]); // Lugares filtrados
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    // // Adicionando dados ao array
-    // allPlaces.push({
-    //     nome: "Parque Ibirapuera",
-    //     cidade: "São Paulo",
-    //     acessibilidade: ["Motora", "Visual", "Auditiva"],
-    //     nota: 5,
-    //     endereco: "Rua X",
-    // });
+    useEffect(() => {
+        const fetchPlaces = async () => {
+            try {
+                const response = await listarLocais();
+                setPlaces(response);
+                setFilteredPlaces(response); // Inicializa com todos os lugares
+            } catch (err) {
+                setError("Erro ao carregar os locais.");
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-    // // Adicionando mais locais
-    // allPlaces.push({
-    //     nome: "Praia de Copacabana",
-    //     cidade: "Rio de Janeiro",
-    //     acessibilidade: ["Motora", "Auditiva", "Visual",],
-    //     nota: 5,
-    //     endereco: "Rua X",
-    // });
-    const isDataEmpty =
-        !Array.isArray(allPlaces) || allPlaces.length < 1 || !allPlaces;
+        fetchPlaces();
+    }, []);
+
     return (
         <main className="overflow-hidden">
             <Hero />
@@ -42,13 +38,22 @@ export default function Home() {
                     <p>Explore locais que você possa gostar</p>
                 </div>
                 <div className="home__filters">
-                    <SearchBar />
+                    <SearchBar
+                        places={places} // Passa todos os lugares
+                        setFilteredPlaces={setFilteredPlaces} // Atualiza os filtrados
+                    />
                 </div>
                 <div>
-                    {!isDataEmpty ? (
+                    {error ? (
+                        <div className="home__error-container">
+                            <h2 className="text-black text-xl font-bold">
+                                {error}
+                            </h2>
+                        </div>
+                    ) : filteredPlaces.length > 0 ? (
                         <section>
                             <div className="home__places-wrapper">
-                                {allPlaces?.map((place, index) => (
+                                {filteredPlaces.map((place, index) => (
                                     <PlaceCard
                                         key={place.nome || index}
                                         place={place}

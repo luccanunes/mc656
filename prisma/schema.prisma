@@ -27,7 +27,8 @@ model Usuario {
 model Local {
   id          Int        @id @default(autoincrement())
   nome        String
-  endereco    String
+  cidade      String
+  endereco    String     
   descricao   String
   imagem      String?
   avaliacoes  Avaliacao[]
