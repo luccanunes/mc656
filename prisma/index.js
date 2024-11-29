@@ -34,6 +34,17 @@ function authenticateToken(req, res, next) {
 app.post("/usuarios", async (req, res) => {
   const { nome, email, senha, deficiencias } = req.body;
 
+  // Validação de limites para nome e email
+  if (nome.length < 3 || nome.length > 50) {
+    return res.status(400).json({ 
+      error: "O nome deve ter entre 3 e 50 caracteres." 
+    });
+  } else if (email.lenght < 3 || email.lenght > 50 ) {
+    return res.status(400).json({ 
+      error: "O email deve ter entre 3 e 50 caracteres." 
+    });
+  }
+
   const hashedPassword = await bcrypt.hash(senha, 10);
   console.log(req.body);
   try {

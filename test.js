@@ -78,3 +78,52 @@ describe('API Tests', () => {
         expect(users.some(user => user.email === "testuser5@example.com")).toBe(false);
     });
 });
+
+describe('Análise de Valor Limite - Cadastro de Usuários', () => {
+    test('Nome deve ter no mínimo 3 caracteres', async () => {
+        try {
+            await axios.post(`${BASE_URL}/usuarios`, {
+                nome: "ab",
+                email: "shortname@example.com",
+                senha: "password123"
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
+    });
+    test('Email deve ter no mínimo 3 caracteres', async () => {
+        try {
+            await axios.post(`${BASE_URL}/usuarios`, {
+                nome: "shortmail",
+                email: "@e",
+                senha: "password123"
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
+    });
+    test('Nome deve ter no máximo 50 caracteres', async () => {
+        const longName = "a".repeat(51)
+        try {
+            await axios.post(`${BASE_URL}/usuarios`, {
+                nome: longName,
+                email: "longName@example.com",
+                senha: "password123"
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
+    });
+    test('Email deve ter no máximo 50 caracteres', async () => {
+        const longEmail = "a".repeat(50) + "@"
+        try {
+            await axios.post(`${BASE_URL}/usuarios`, {
+                nome: "longEmail",
+                email: longEmail,
+                senha: "password123"
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
+    });
+});
