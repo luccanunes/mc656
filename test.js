@@ -2,80 +2,52 @@ const axios = require('axios');
 
 const BASE_URL = "http://localhost:3001/api";
 
-describe('API Tests', () => {
-    test('Register a user and check if they exist', async () => {
-        // Register a new user
-        let response = await axios.post(`${BASE_URL}/register`, {
-            username: "testuser",
-            email: "testuser@example.com",
-            password: "password123"
-        });
-        expect(response.status).toBe(201); // Check if the user was created successfully
-
-        // Check if the user exists
-        response = await axios.get(`${BASE_URL}/users`);
-        expect(response.status).toBe(200);
-        const users = response.data;
-        expect(users.some(user => user.email === "testuser@example.com")).toBe(true);
-    });
-
-    test('Register a user and try to register another with the same email', async () => {
-        // Register a new user
-        let response = await axios.post(`${BASE_URL}/register`, {
-            username: "testuser2",
-            email: "testuser2@example.com",
-            password: "password123"
-        });
-        expect(response.status).toBe(201); // Check if the user was created successfully
-
-        // Try to register another user with the same email
+describe('Análise de Valor Limite - Cadastro de Usuários', () => {
+    test('Nome deve ter no mínimo 3 caracteres', async () => {
         try {
-            response = await axios.post(`${BASE_URL}/register`, {
-                username: "testuser3",
-                email: "testuser2@example.com",
-                password: "password123"
+            await axios.post(`${BASE_URL}/usuarios`, {
+                nome: "ab",
+                email: "shortname@example.com",
+                senha: "password123"
             });
         } catch (error) {
-            response = error.response;
+            expect(error.response.status).toBe(400);
         }
-        expect(response.status).toBe(400); // Check if the API returns an error for existing email
     });
-
-    test('Login a user', async () => {
-        // Register a new user
-        let response = await axios.post(`${BASE_URL}/register`, {
-            username: "testuser4",
-            email: "testuser4@example.com",
-            password: "password123"
-        });
-        expect(response.status).toBe(201); // Check if the user was created successfully
-
-        // Login the user
-        response = await axios.post(`${BASE_URL}/login`, {
-            email: "testuser4@example.com",
-            password: "password123"
-        });
-        expect(response.status).toBe(200); // Check if the login was successful
+    test('Email deve ter no mínimo 3 caracteres', async () => {
+        try {
+            await axios.post(`${BASE_URL}/usuarios`, {
+                nome: "shortmail",
+                email: "@e",
+                senha: "password123"
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
     });
-
-    test('Delete a user', async () => {
-        // Register a new user
-        let response = await axios.post(`${BASE_URL}/register`, {
-            username: "testuser5",
-            email: "testuser5@example.com",
-            password: "password123"
-        });
-        expect(response.status).toBe(201); // Check if the user was created successfully
-
-        // Delete the user
-        response = await axios.delete(`${BASE_URL}/delete/testuser5@example.com`);
-        expect(response.status).toBe(200); // Check if the user was deleted successfully
-
-        // Check if the user no longer exists
-        response = await axios.get(`${BASE_URL}/users`);
-        expect(response.status).toBe(200);
-        const users = response.data;
-        expect(users.some(user => user.email === "testuser5@example.com")).toBe(false);
+    test('Nome deve ter no máximo 50 caracteres', async () => {
+        const longName = "a".repeat(51)
+        try {
+            await axios.post(`${BASE_URL}/usuarios`, {
+                nome: longName,
+                email: "longName@example.com",
+                senha: "password123"
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
+    });
+    test('Email deve ter no máximo 50 caracteres', async () => {
+        const longEmail = "a".repeat(50) + "@"
+        try {
+            await axios.post(`${BASE_URL}/usuarios`, {
+                nome: "longEmail",
+                email: longEmail,
+                senha: "password123"
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
     });
 });
 
@@ -127,3 +99,96 @@ describe('Análise de Valor Limite - Cadastro de Usuários', () => {
         }
     });
 });
+
+describe('Análise de Valor Limite - Registro de Locais', () => {
+    test('Nome do local com menos de 5 caracteres deve falhar', async () => {
+        try {
+            await axios.post(`${BASE_URL}/locais`, {
+                nome: "abcd",
+                endereco: "Rua A",
+                descricao: "Local inválido",
+                tiposDeAcessibilidade: [],
+                recursosDisponiveis: []
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(500);
+        }
+    });
+
+    test('Nome do local com exatamente 5 caracteres deve ser aceito', async () => {
+        const response = await axios.post(`${BASE_URL}/locais`, {
+            nome: "abcde",
+            endereco: "Rua B",
+            descricao: "Local válido",
+            tiposDeAcessibilidade: [],
+            recursosDisponiveis: []
+        });
+        expect(response.status).toBe(201);
+    });
+
+    test('Nome do local com mais de 100 caracteres deve falhar', async () => {
+        try {
+            const longName = 'a'.repeat(101);
+            await axios.post(`${BASE_URL}/locais`, {
+                nome: longName,
+                endereco: "Rua C",
+                descricao: "Local inválido",
+                tiposDeAcessibilidade: ["rampa"],
+                recursosDisponiveis: ["banheiro acessível"]
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
+    });
+});
+
+describe('Análise de Valor Limite - Avaliações', () => {
+    test('Nota abaixo do limite (0) deve falhar', async () => {
+        try {
+            await axios.post(`${BASE_URL}/avaliacoes`, {
+                nota: 0,
+                comentario: "Nota inválida",
+                usuarioId: 1,
+                localId: 1
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
+    });
+
+    test('Nota mínima válida (1) deve ser aceita', async () => {
+        const response = await axios.post(`${BASE_URL}/avaliacoes`, {
+            nota: 1,
+            comentario: "Nota válida",
+            usuarioId: 1,
+            localId: 1
+        });
+        expect(response.status).toBe(201);
+    });
+
+    test('Nota máxima válida (5) deve ser aceita', async () => {
+        const response = await axios.post(`${BASE_URL}/avaliacoes`, {
+            nota: 5,
+            comentario: "Nota válida",
+            usuarioId: 1,
+            localId: 1
+        });
+        expect(response.status).toBe(201);
+    });
+
+    test('Nota acima do limite (6) deve falhar', async () => {
+        try {
+            await axios.post(`${BASE_URL}/avaliacoes`, {
+                nota: 6,
+                comentario: "Nota inválida",
+                usuarioId: 1,
+                localId: 1
+            }, {
+                headers: { Authorization: `Bearer VALID_TOKEN` }
+            });
+        } catch (error) {
+            expect(error.response.status).toBe(400);
+        }
+    });
+});
+

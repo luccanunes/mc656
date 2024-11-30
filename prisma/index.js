@@ -39,7 +39,7 @@ app.post("/usuarios", async (req, res) => {
     return res.status(400).json({ 
       error: "O nome deve ter entre 3 e 50 caracteres." 
     });
-  } else if (email.lenght < 3 || email.lenght > 50 ) {
+  } else if (email.length < 3 || email.length > 50 ) {
     return res.status(400).json({ 
       error: "O email deve ter entre 3 e 50 caracteres." 
     });
@@ -186,7 +186,12 @@ app.post("/locais", authenticateToken, async (req, res) => {
     imagem,
   } = req.body;
 
+  if (nome.length < 5 || nome.length > 100) {
+    return res.status(400).json({ error: "O nome do local deve ter entre 5 e 100 caracteres." });
+  }
   try {
+    // Validação de limites para o campo "nome"
+
     const local = await prisma.local.create({
       data: {
         nome,
@@ -227,7 +232,12 @@ app.post("/locais", authenticateToken, async (req, res) => {
 // Adicionar avaliação e atualizar a nota média do local
 app.post('/avaliacoes', authenticateToken, async (req, res) => {
   const { nota, comentario, usuarioId, localId } = req.body;
-
+  
+  // Validação de limites para a nota
+  if (nota < 1 || nota > 5) {
+    return res.status(400).json({ error: "A nota deve estar entre 1 e 5." });
+  }
+  
   try {
     // Adicionar nova avaliação
     const novaAvaliacao = await prisma.avaliacao.create({
