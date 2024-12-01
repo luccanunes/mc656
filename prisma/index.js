@@ -70,6 +70,56 @@ app.post("/usuarios", async (req, res) => {
   }
 });
 
+app.delete("/usuarios/:id", async (req, res) => {
+  const { id } = req.params; // Captura o ID do usuário a partir dos parâmetros da URL
+
+  try {
+    // Verifica se o usuário existe
+    const usuario = await prisma.usuario.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ error: "Usuário não encontrado." });
+    }
+
+    // Deleta o usuário
+    await prisma.usuario.delete({
+      where: { id: parseInt(id) },
+    });
+
+    res.status(200).json({ message: "Usuário deletado com sucesso." });
+  } catch (error) {
+    console.error("Erro ao deletar usuário:", error);
+    res.status(500).json({ error: "Erro ao deletar usuário." });
+  }
+});
+
+app.delete("/locais/:id", async (req, res) => {
+  const { id } = req.params; // Captura o ID do local a partir dos parâmetros da URL
+
+  try {
+    // Verifica se o local existe
+    const local = await prisma.local.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!local) {
+      return res.status(404).json({ error: "Local não encontrado." });
+    }
+
+    // Deleta o local
+    await prisma.local.delete({
+      where: { id: parseInt(id) },
+    });
+
+    res.status(200).json({ message: "Local deletado com sucesso." });
+  } catch (error) {
+    console.error("Erro ao deletar local:", error);
+    res.status(500).json({ error: "Erro ao deletar local." });
+  }
+});
+
 // Obter todas as avaliações de um usuário com informações limitadas dos locais
 app.get("/usuarios/:id/avaliacoes", authenticateToken, async (req, res) => {
   const { id } = req.params;
